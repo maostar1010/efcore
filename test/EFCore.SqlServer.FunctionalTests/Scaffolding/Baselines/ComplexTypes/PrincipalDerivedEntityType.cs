@@ -60,13 +60,22 @@ namespace TestNamespace
                     IList<CompiledModelTestBase.OwnedType> (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> instance) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(instance),
                     bool (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> instance) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(instance) == null);
                 complexProperty.SetSetter(
-                    (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, IList<CompiledModelTestBase.OwnedType> value) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(entity) = value);
+                    CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> instance, IList<CompiledModelTestBase.OwnedType> value) =>
+                    {
+                        PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(instance) = value;
+                        return instance;
+                    });
                 complexProperty.SetMaterializationSetter(
-                    (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, IList<CompiledModelTestBase.OwnedType> value) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(entity) = value);
+                    CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> instance, IList<CompiledModelTestBase.OwnedType> value) =>
+                    {
+                        PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(instance) = value;
+                        return instance;
+                    });
                 complexProperty.SetIndexedCollectionAccessor(
                     CompiledModelTestBase.OwnedType (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> structuralObject, int index) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(structuralObject)[index],
                     (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> structuralObject, int index, CompiledModelTestBase.OwnedType value) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(structuralObject)[index] = value,
-                    (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> structuralObject, int index, CompiledModelTestBase.OwnedType value) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(structuralObject)[index] = value);
+                    (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> structuralObject, int index, CompiledModelTestBase.OwnedType value) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(structuralObject)[index] = value,
+                    IList<CompiledModelTestBase.OwnedType> (int capacity) => new List<CompiledModelTestBase.OwnedType>(capacity));
                 complexProperty.SetAccessors(
                     IList<CompiledModelTestBase.OwnedType> (IInternalEntry entry) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))),
                     IList<CompiledModelTestBase.OwnedType> (IInternalEntry entry) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))),
@@ -105,6 +114,11 @@ namespace TestNamespace
                         }
 
                         level1.Details = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, string value) =>
+                    {
+                        instance.Details = value;
+                        return instance;
                     });
                 details.SetMaterializationSetter(
                     (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, string value) =>
@@ -116,6 +130,11 @@ namespace TestNamespace
                         }
 
                         level1.Details = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, string value) =>
+                    {
+                        OwnedTypeUnsafeAccessors._details(instance) = value;
+                        return instance;
                     });
                 details.SetAccessors(
                     string (IInternalEntry entry) => ((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(string) : (PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]].Details),
@@ -170,6 +189,11 @@ namespace TestNamespace
                         }
 
                         OwnedTypeUnsafeAccessors.Number(level1) = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, int value) =>
+                    {
+                        OwnedTypeUnsafeAccessors.Number(instance) = value;
+                        return instance;
                     });
                 number.SetMaterializationSetter(
                     (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, int value) =>
@@ -181,6 +205,11 @@ namespace TestNamespace
                         }
 
                         OwnedTypeUnsafeAccessors.Number(level1) = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, int value) =>
+                    {
+                        OwnedTypeUnsafeAccessors.Number(instance) = value;
+                        return instance;
                     });
                 number.SetAccessors(
                     int (IInternalEntry entry) => ((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(int) : OwnedTypeUnsafeAccessors.Number((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])),
@@ -229,6 +258,11 @@ namespace TestNamespace
                         }
 
                         OwnedTypeUnsafeAccessors._refTypeArray(level1) = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, IPAddress[] value) =>
+                    {
+                        OwnedTypeUnsafeAccessors._refTypeArray(instance) = value;
+                        return instance;
                     });
                 refTypeArray.SetMaterializationSetter(
                     (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, IPAddress[] value) =>
@@ -240,6 +274,11 @@ namespace TestNamespace
                         }
 
                         OwnedTypeUnsafeAccessors._refTypeArray(level1) = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, IPAddress[] value) =>
+                    {
+                        OwnedTypeUnsafeAccessors._refTypeArray(instance) = value;
+                        return instance;
                     });
                 refTypeArray.SetAccessors(
                     IPAddress[] (IInternalEntry entry) => ((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(IPAddress[]) : OwnedTypeUnsafeAccessors._refTypeArray((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])),
@@ -333,6 +372,11 @@ namespace TestNamespace
                         }
 
                         OwnedTypeUnsafeAccessors._refTypeEnumerable(level1) = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, IEnumerable<string> value) =>
+                    {
+                        OwnedTypeUnsafeAccessors._refTypeEnumerable(instance) = value;
+                        return instance;
                     });
                 refTypeEnumerable.SetMaterializationSetter(
                     (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, IEnumerable<string> value) =>
@@ -344,6 +388,11 @@ namespace TestNamespace
                         }
 
                         OwnedTypeUnsafeAccessors._refTypeEnumerable(level1) = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, IEnumerable<string> value) =>
+                    {
+                        OwnedTypeUnsafeAccessors._refTypeEnumerable(instance) = value;
+                        return instance;
                     });
                 refTypeEnumerable.SetAccessors(
                     IEnumerable<string> (IInternalEntry entry) => ((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(IEnumerable<string>) : OwnedTypeUnsafeAccessors._refTypeEnumerable((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])),
@@ -421,6 +470,11 @@ namespace TestNamespace
                         }
 
                         OwnedTypeUnsafeAccessors._refTypeIList(level1) = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, IList<string> value) =>
+                    {
+                        OwnedTypeUnsafeAccessors._refTypeIList(instance) = value;
+                        return instance;
                     });
                 refTypeIList.SetMaterializationSetter(
                     (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, IList<string> value) =>
@@ -432,6 +486,11 @@ namespace TestNamespace
                         }
 
                         OwnedTypeUnsafeAccessors._refTypeIList(level1) = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, IList<string> value) =>
+                    {
+                        OwnedTypeUnsafeAccessors._refTypeIList(instance) = value;
+                        return instance;
                     });
                 refTypeIList.SetAccessors(
                     IList<string> (IInternalEntry entry) => ((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(IList<string>) : OwnedTypeUnsafeAccessors._refTypeIList((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])),
@@ -509,6 +568,11 @@ namespace TestNamespace
                         }
 
                         OwnedTypeUnsafeAccessors._refTypeList(level1) = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, List<IPAddress> value) =>
+                    {
+                        OwnedTypeUnsafeAccessors._refTypeList(instance) = value;
+                        return instance;
                     });
                 refTypeList.SetMaterializationSetter(
                     (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, List<IPAddress> value) =>
@@ -520,6 +584,11 @@ namespace TestNamespace
                         }
 
                         OwnedTypeUnsafeAccessors._refTypeList(level1) = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, List<IPAddress> value) =>
+                    {
+                        OwnedTypeUnsafeAccessors._refTypeList(instance) = value;
+                        return instance;
                     });
                 refTypeList.SetAccessors(
                     List<IPAddress> (IInternalEntry entry) => ((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(List<IPAddress>) : OwnedTypeUnsafeAccessors._refTypeList((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])),
@@ -613,6 +682,11 @@ namespace TestNamespace
                         }
 
                         OwnedTypeUnsafeAccessors._valueTypeArray(level1) = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, DateTime[] value) =>
+                    {
+                        OwnedTypeUnsafeAccessors._valueTypeArray(instance) = value;
+                        return instance;
                     });
                 valueTypeArray.SetMaterializationSetter(
                     (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, DateTime[] value) =>
@@ -624,6 +698,11 @@ namespace TestNamespace
                         }
 
                         OwnedTypeUnsafeAccessors._valueTypeArray(level1) = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, DateTime[] value) =>
+                    {
+                        OwnedTypeUnsafeAccessors._valueTypeArray(instance) = value;
+                        return instance;
                     });
                 valueTypeArray.SetAccessors(
                     DateTime[] (IInternalEntry entry) => ((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(DateTime[]) : OwnedTypeUnsafeAccessors._valueTypeArray((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])),
@@ -696,6 +775,11 @@ namespace TestNamespace
                         }
 
                         OwnedTypeUnsafeAccessors._valueTypeEnumerable(level1) = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, IEnumerable<byte> value) =>
+                    {
+                        OwnedTypeUnsafeAccessors._valueTypeEnumerable(instance) = value;
+                        return instance;
                     });
                 valueTypeEnumerable.SetMaterializationSetter(
                     (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, IEnumerable<byte> value) =>
@@ -707,6 +791,11 @@ namespace TestNamespace
                         }
 
                         OwnedTypeUnsafeAccessors._valueTypeEnumerable(level1) = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, IEnumerable<byte> value) =>
+                    {
+                        OwnedTypeUnsafeAccessors._valueTypeEnumerable(instance) = value;
+                        return instance;
                     });
                 valueTypeEnumerable.SetAccessors(
                     IEnumerable<byte> (IInternalEntry entry) => ((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(IEnumerable<byte>) : OwnedTypeUnsafeAccessors._valueTypeEnumerable((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])),
@@ -779,6 +868,11 @@ namespace TestNamespace
                         }
 
                         OwnedTypeUnsafeAccessors.ValueTypeIList(level1) = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, IList<byte> value) =>
+                    {
+                        OwnedTypeUnsafeAccessors.ValueTypeIList(instance) = value;
+                        return instance;
                     });
                 valueTypeIList.SetMaterializationSetter(
                     (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, IList<byte> value) =>
@@ -790,6 +884,11 @@ namespace TestNamespace
                         }
 
                         OwnedTypeUnsafeAccessors.ValueTypeIList(level1) = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, IList<byte> value) =>
+                    {
+                        OwnedTypeUnsafeAccessors.ValueTypeIList(instance) = value;
+                        return instance;
                     });
                 valueTypeIList.SetAccessors(
                     IList<byte> (IInternalEntry entry) => ((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(IList<byte>) : OwnedTypeUnsafeAccessors.ValueTypeIList((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])),
@@ -862,6 +961,11 @@ namespace TestNamespace
                         }
 
                         OwnedTypeUnsafeAccessors._valueTypeList(level1) = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, List<short> value) =>
+                    {
+                        OwnedTypeUnsafeAccessors._valueTypeList(instance) = value;
+                        return instance;
                     });
                 valueTypeList.SetMaterializationSetter(
                     (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, List<short> value) =>
@@ -873,6 +977,11 @@ namespace TestNamespace
                         }
 
                         OwnedTypeUnsafeAccessors._valueTypeList(level1) = value;
+                    },
+                    CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, List<short> value) =>
+                    {
+                        OwnedTypeUnsafeAccessors._valueTypeList(instance) = value;
+                        return instance;
                     });
                 valueTypeList.SetAccessors(
                     List<short> (IInternalEntry entry) => ((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(List<short>) : OwnedTypeUnsafeAccessors._valueTypeList((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])),
@@ -965,6 +1074,11 @@ namespace TestNamespace
                             }
 
                             OwnedTypeUnsafeAccessors.Principal(level1) = value;
+                        },
+                        CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, CompiledModelTestBase.PrincipalBase value) =>
+                        {
+                            OwnedTypeUnsafeAccessors.Principal(instance) = value;
+                            return instance;
                         });
                     complexProperty.SetMaterializationSetter(
                         (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, CompiledModelTestBase.PrincipalBase value) =>
@@ -976,6 +1090,11 @@ namespace TestNamespace
                             }
 
                             OwnedTypeUnsafeAccessors.Principal(level1) = value;
+                        },
+                        CompiledModelTestBase.OwnedType (CompiledModelTestBase.OwnedType instance, CompiledModelTestBase.PrincipalBase value) =>
+                        {
+                            OwnedTypeUnsafeAccessors.Principal(instance) = value;
+                            return instance;
                         });
                     complexProperty.SetAccessors(
                         CompiledModelTestBase.PrincipalBase (IInternalEntry entry) => ((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])),
@@ -1009,6 +1128,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             level2.AlternateId = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, Guid value) =>
+                        {
+                            instance.AlternateId = value;
+                            return instance;
                         });
                     alternateId.SetMaterializationSetter(
                         (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, Guid value) =>
@@ -1021,6 +1145,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             level2.AlternateId = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, Guid value) =>
+                        {
+                            instance.AlternateId = value;
+                            return instance;
                         });
                     alternateId.SetAccessors(
                         Guid (IInternalEntry entry) => (((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])) == null ? default(Guid) : ((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])).AlternateId),
@@ -1071,6 +1200,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.Enum1(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, CompiledModelTestBase.AnEnum value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.Enum1(instance) = value;
+                            return instance;
                         });
                     enum1.SetMaterializationSetter(
                         (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, CompiledModelTestBase.AnEnum value) =>
@@ -1083,6 +1217,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.Enum1(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, CompiledModelTestBase.AnEnum value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.Enum1(instance) = value;
+                            return instance;
                         });
                     enum1.SetAccessors(
                         CompiledModelTestBase.AnEnum (IInternalEntry entry) => (((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])) == null ? default(CompiledModelTestBase.AnEnum) : PrincipalBaseUnsafeAccessors.Enum1(((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])))),
@@ -1141,6 +1280,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.Enum2(level2) = (value == null ? value : ((CompiledModelTestBase.AnEnum? )(((CompiledModelTestBase.AnEnum)(value)))));
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, CompiledModelTestBase.AnEnum? value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.Enum2(instance) = (value == null ? value : ((CompiledModelTestBase.AnEnum? )(((CompiledModelTestBase.AnEnum)(value)))));
+                            return instance;
                         });
                     enum2.SetMaterializationSetter(
                         (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, CompiledModelTestBase.AnEnum? value) =>
@@ -1153,6 +1297,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.Enum2(level2) = (value == null ? value : ((CompiledModelTestBase.AnEnum? )(((CompiledModelTestBase.AnEnum)(value)))));
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, CompiledModelTestBase.AnEnum? value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.Enum2(instance) = (value == null ? value : ((CompiledModelTestBase.AnEnum? )(((CompiledModelTestBase.AnEnum)(value)))));
+                            return instance;
                         });
                     enum2.SetAccessors(
                         CompiledModelTestBase.AnEnum? (IInternalEntry entry) => (((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])) == null ? default(CompiledModelTestBase.AnEnum? ) : PrincipalBaseUnsafeAccessors.Enum2(((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])))),
@@ -1211,6 +1360,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.FlagsEnum1(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, CompiledModelTestBase.AFlagsEnum value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.FlagsEnum1(instance) = value;
+                            return instance;
                         });
                     flagsEnum1.SetMaterializationSetter(
                         (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, CompiledModelTestBase.AFlagsEnum value) =>
@@ -1223,6 +1377,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.FlagsEnum1(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, CompiledModelTestBase.AFlagsEnum value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.FlagsEnum1(instance) = value;
+                            return instance;
                         });
                     flagsEnum1.SetAccessors(
                         CompiledModelTestBase.AFlagsEnum (IInternalEntry entry) => (((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])) == null ? default(CompiledModelTestBase.AFlagsEnum) : PrincipalBaseUnsafeAccessors.FlagsEnum1(((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])))),
@@ -1280,6 +1439,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.FlagsEnum2(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, CompiledModelTestBase.AFlagsEnum value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.FlagsEnum2(instance) = value;
+                            return instance;
                         });
                     flagsEnum2.SetMaterializationSetter(
                         (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, CompiledModelTestBase.AFlagsEnum value) =>
@@ -1292,6 +1456,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.FlagsEnum2(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, CompiledModelTestBase.AFlagsEnum value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.FlagsEnum2(instance) = value;
+                            return instance;
                         });
                     flagsEnum2.SetAccessors(
                         CompiledModelTestBase.AFlagsEnum (IInternalEntry entry) => (((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])) == null ? default(CompiledModelTestBase.AFlagsEnum) : PrincipalBaseUnsafeAccessors.FlagsEnum2(((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])))),
@@ -1350,6 +1519,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.Id(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, long? value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.Id(instance) = value;
+                            return instance;
                         });
                     id.SetMaterializationSetter(
                         (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, long? value) =>
@@ -1362,6 +1536,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.Id(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, long? value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.Id(instance) = value;
+                            return instance;
                         });
                     id.SetAccessors(
                         long? (IInternalEntry entry) => (((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])) == null ? default(long? ) : PrincipalBaseUnsafeAccessors.Id(((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])))),
@@ -1413,6 +1592,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.RefTypeArray(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, IPAddress[] value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.RefTypeArray(instance) = value;
+                            return instance;
                         });
                     refTypeArray.SetMaterializationSetter(
                         (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, IPAddress[] value) =>
@@ -1425,6 +1609,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.RefTypeArray(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, IPAddress[] value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.RefTypeArray(instance) = value;
+                            return instance;
                         });
                     refTypeArray.SetAccessors(
                         IPAddress[] (IInternalEntry entry) => (((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])) == null ? default(IPAddress[]) : PrincipalBaseUnsafeAccessors.RefTypeArray(((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])))),
@@ -1519,6 +1708,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.RefTypeEnumerable(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, IEnumerable<string> value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.RefTypeEnumerable(instance) = value;
+                            return instance;
                         });
                     refTypeEnumerable.SetMaterializationSetter(
                         (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, IEnumerable<string> value) =>
@@ -1531,6 +1725,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.RefTypeEnumerable(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, IEnumerable<string> value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.RefTypeEnumerable(instance) = value;
+                            return instance;
                         });
                     refTypeEnumerable.SetAccessors(
                         IEnumerable<string> (IInternalEntry entry) => (((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])) == null ? default(IEnumerable<string>) : PrincipalBaseUnsafeAccessors.RefTypeEnumerable(((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])))),
@@ -1609,6 +1808,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.RefTypeIList(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, IList<string> value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.RefTypeIList(instance) = value;
+                            return instance;
                         });
                     refTypeIList.SetMaterializationSetter(
                         (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, IList<string> value) =>
@@ -1621,6 +1825,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.RefTypeIList(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, IList<string> value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.RefTypeIList(instance) = value;
+                            return instance;
                         });
                     refTypeIList.SetAccessors(
                         IList<string> (IInternalEntry entry) => (((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])) == null ? default(IList<string>) : PrincipalBaseUnsafeAccessors.RefTypeIList(((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])))),
@@ -1699,6 +1908,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.RefTypeList(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, List<IPAddress> value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.RefTypeList(instance) = value;
+                            return instance;
                         });
                     refTypeList.SetMaterializationSetter(
                         (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, List<IPAddress> value) =>
@@ -1711,6 +1925,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.RefTypeList(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, List<IPAddress> value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.RefTypeList(instance) = value;
+                            return instance;
                         });
                     refTypeList.SetAccessors(
                         List<IPAddress> (IInternalEntry entry) => (((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])) == null ? default(List<IPAddress>) : PrincipalBaseUnsafeAccessors.RefTypeList(((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])))),
@@ -1805,6 +2024,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.ValueTypeArray(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, DateTime[] value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.ValueTypeArray(instance) = value;
+                            return instance;
                         });
                     valueTypeArray.SetMaterializationSetter(
                         (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, DateTime[] value) =>
@@ -1817,6 +2041,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.ValueTypeArray(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, DateTime[] value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.ValueTypeArray(instance) = value;
+                            return instance;
                         });
                     valueTypeArray.SetAccessors(
                         DateTime[] (IInternalEntry entry) => (((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])) == null ? default(DateTime[]) : PrincipalBaseUnsafeAccessors.ValueTypeArray(((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])))),
@@ -1890,6 +2119,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.ValueTypeEnumerable(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, IEnumerable<byte> value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.ValueTypeEnumerable(instance) = value;
+                            return instance;
                         });
                     valueTypeEnumerable.SetMaterializationSetter(
                         (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, IEnumerable<byte> value) =>
@@ -1902,6 +2136,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.ValueTypeEnumerable(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, IEnumerable<byte> value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.ValueTypeEnumerable(instance) = value;
+                            return instance;
                         });
                     valueTypeEnumerable.SetAccessors(
                         IEnumerable<byte> (IInternalEntry entry) => (((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])) == null ? default(IEnumerable<byte>) : PrincipalBaseUnsafeAccessors.ValueTypeEnumerable(((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])))),
@@ -1975,6 +2214,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.ValueTypeIList(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, IList<byte> value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.ValueTypeIList(instance) = value;
+                            return instance;
                         });
                     valueTypeIList.SetMaterializationSetter(
                         (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, IList<byte> value) =>
@@ -1987,6 +2231,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.ValueTypeIList(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, IList<byte> value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.ValueTypeIList(instance) = value;
+                            return instance;
                         });
                     valueTypeIList.SetAccessors(
                         IList<byte> (IInternalEntry entry) => (((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])) == null ? default(IList<byte>) : PrincipalBaseUnsafeAccessors.ValueTypeIList(((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])))),
@@ -2060,6 +2309,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.ValueTypeList(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, List<short> value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.ValueTypeList(instance) = value;
+                            return instance;
                         });
                     valueTypeList.SetMaterializationSetter(
                         (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>> entity, IReadOnlyList<int> indices, List<short> value) =>
@@ -2072,6 +2326,11 @@ namespace TestNamespace
 
                             var level2 = OwnedTypeUnsafeAccessors.Principal(level1);
                             PrincipalBaseUnsafeAccessors.ValueTypeList(level2) = value;
+                        },
+                        CompiledModelTestBase.PrincipalBase (CompiledModelTestBase.PrincipalBase instance, List<short> value) =>
+                        {
+                            PrincipalBaseUnsafeAccessors.ValueTypeList(instance) = value;
+                            return instance;
                         });
                     valueTypeList.SetAccessors(
                         List<short> (IInternalEntry entry) => (((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])) == null ? default(List<short>) : PrincipalBaseUnsafeAccessors.ValueTypeList(((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]] == null ? default(CompiledModelTestBase.PrincipalBase) : OwnedTypeUnsafeAccessors.Principal((PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))) == null ? throw new InvalidOperationException(CoreStrings.ComplexCollectionNotInitialized("PrincipalDerived", "ManyOwned")) : PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<byte?>>.ManyOwned(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(entry.Entity))))[entry.GetOrdinals()[0]])))),
@@ -2214,7 +2473,7 @@ namespace TestNamespace
                     var structuralType1 = ((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(source.Entity));
                     var liftedArg0 = ((ISnapshot)(new Snapshot<long?, string, CompiledModelTestBase.AnEnum, CompiledModelTestBase.AnEnum?, CompiledModelTestBase.AFlagsEnum, CompiledModelTestBase.AFlagsEnum, long?, IPAddress[], IEnumerable<string>, IList<string>, List<IPAddress>, DateTime[], IEnumerable<byte>, IList<byte>, List<short>, string, int, IPAddress[], IEnumerable<string>, IList<string>, List<IPAddress>, DateTime[], IEnumerable<byte>, IList<byte>, List<short>, Guid, CompiledModelTestBase.AnEnum, CompiledModelTestBase.AnEnum?, CompiledModelTestBase.AFlagsEnum, CompiledModelTestBase.AFlagsEnum>((source.GetCurrentValue<long?>(id) == null ? null : ((ValueComparer<long?>)(((IProperty)id).GetValueComparer())).Snapshot(source.GetCurrentValue<long?>(id))), (source.GetCurrentValue<string>(discriminator) == null ? null : ((ValueComparer<string>)(((IProperty)discriminator).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(discriminator))), ((ValueComparer<CompiledModelTestBase.AnEnum>)(((IProperty)enum1).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.AnEnum>(enum1)), (source.GetCurrentValue<CompiledModelTestBase.AnEnum?>(enum2) == null ? null : ((ValueComparer<CompiledModelTestBase.AnEnum?>)(((IProperty)enum2).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.AnEnum?>(enum2))), ((ValueComparer<CompiledModelTestBase.AFlagsEnum>)(((IProperty)flagsEnum1).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.AFlagsEnum>(flagsEnum1)), ((ValueComparer<CompiledModelTestBase.AFlagsEnum>)(((IProperty)flagsEnum2).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.AFlagsEnum>(flagsEnum2)), (source.GetCurrentValue<long?>(principalBaseId) == null ? null : ((ValueComparer<long?>)(((IProperty)principalBaseId).GetValueComparer())).Snapshot(source.GetCurrentValue<long?>(principalBaseId))), (((object)(source.GetCurrentValue<IPAddress[]>(refTypeArray))) == null ? null : ((IPAddress[])(((ValueComparer<object>)(((IProperty)refTypeArray).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<IPAddress[]>(refTypeArray))))))), (((object)(source.GetCurrentValue<IEnumerable<string>>(refTypeEnumerable))) == null ? null : ((IEnumerable<string>)(((ValueComparer<object>)(((IProperty)refTypeEnumerable).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<IEnumerable<string>>(refTypeEnumerable))))))), (((object)(source.GetCurrentValue<IList<string>>(refTypeIList))) == null ? null : ((IList<string>)(((ValueComparer<object>)(((IProperty)refTypeIList).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<IList<string>>(refTypeIList))))))), (((object)(source.GetCurrentValue<List<IPAddress>>(refTypeList))) == null ? null : ((List<IPAddress>)(((ValueComparer<object>)(((IProperty)refTypeList).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<List<IPAddress>>(refTypeList))))))), (((IEnumerable<DateTime>)(source.GetCurrentValue<DateTime[]>(valueTypeArray))) == null ? null : ((DateTime[])(((ValueComparer<IEnumerable<DateTime>>)(((IProperty)valueTypeArray).GetValueComparer())).Snapshot(((IEnumerable<DateTime>)(source.GetCurrentValue<DateTime[]>(valueTypeArray))))))), (source.GetCurrentValue<IEnumerable<byte>>(valueTypeEnumerable) == null ? null : ((ValueComparer<IEnumerable<byte>>)(((IProperty)valueTypeEnumerable).GetValueComparer())).Snapshot(source.GetCurrentValue<IEnumerable<byte>>(valueTypeEnumerable))), (((IEnumerable<byte>)(source.GetCurrentValue<IList<byte>>(valueTypeIList))) == null ? null : ((IList<byte>)(((ValueComparer<IEnumerable<byte>>)(((IProperty)valueTypeIList).GetValueComparer())).Snapshot(((IEnumerable<byte>)(source.GetCurrentValue<IList<byte>>(valueTypeIList))))))), (((IEnumerable<short>)(source.GetCurrentValue<List<short>>(valueTypeList))) == null ? null : ((List<short>)(((ValueComparer<IEnumerable<short>>)(((IProperty)valueTypeList).GetValueComparer())).Snapshot(((IEnumerable<short>)(source.GetCurrentValue<List<short>>(valueTypeList))))))), (source.GetCurrentValue<string>(details) == null ? null : ((ValueComparer<string>)(((IProperty)details).GetValueComparer())).Snapshot(source.GetCurrentValue<string>(details))), ((ValueComparer<int>)(((IProperty)number).GetValueComparer())).Snapshot(source.GetCurrentValue<int>(number)), (((object)(source.GetCurrentValue<IPAddress[]>(refTypeArray0))) == null ? null : ((IPAddress[])(((ValueComparer<object>)(((IProperty)refTypeArray0).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<IPAddress[]>(refTypeArray0))))))), (((object)(source.GetCurrentValue<IEnumerable<string>>(refTypeEnumerable0))) == null ? null : ((IEnumerable<string>)(((ValueComparer<object>)(((IProperty)refTypeEnumerable0).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<IEnumerable<string>>(refTypeEnumerable0))))))), (((object)(source.GetCurrentValue<IList<string>>(refTypeIList0))) == null ? null : ((IList<string>)(((ValueComparer<object>)(((IProperty)refTypeIList0).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<IList<string>>(refTypeIList0))))))), (((object)(source.GetCurrentValue<List<IPAddress>>(refTypeList0))) == null ? null : ((List<IPAddress>)(((ValueComparer<object>)(((IProperty)refTypeList0).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<List<IPAddress>>(refTypeList0))))))), (((IEnumerable<DateTime>)(source.GetCurrentValue<DateTime[]>(valueTypeArray0))) == null ? null : ((DateTime[])(((ValueComparer<IEnumerable<DateTime>>)(((IProperty)valueTypeArray0).GetValueComparer())).Snapshot(((IEnumerable<DateTime>)(source.GetCurrentValue<DateTime[]>(valueTypeArray0))))))), (source.GetCurrentValue<IEnumerable<byte>>(valueTypeEnumerable0) == null ? null : ((ValueComparer<IEnumerable<byte>>)(((IProperty)valueTypeEnumerable0).GetValueComparer())).Snapshot(source.GetCurrentValue<IEnumerable<byte>>(valueTypeEnumerable0))), (((IEnumerable<byte>)(source.GetCurrentValue<IList<byte>>(valueTypeIList0))) == null ? null : ((IList<byte>)(((ValueComparer<IEnumerable<byte>>)(((IProperty)valueTypeIList0).GetValueComparer())).Snapshot(((IEnumerable<byte>)(source.GetCurrentValue<IList<byte>>(valueTypeIList0))))))), (((IEnumerable<short>)(source.GetCurrentValue<List<short>>(valueTypeList0))) == null ? null : ((List<short>)(((ValueComparer<IEnumerable<short>>)(((IProperty)valueTypeList0).GetValueComparer())).Snapshot(((IEnumerable<short>)(source.GetCurrentValue<List<short>>(valueTypeList0))))))), ((ValueComparer<Guid>)(((IProperty)alternateId).GetValueComparer())).Snapshot(source.GetCurrentValue<Guid>(alternateId)), ((ValueComparer<CompiledModelTestBase.AnEnum>)(((IProperty)enum10).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.AnEnum>(enum10)), (source.GetCurrentValue<CompiledModelTestBase.AnEnum?>(enum20) == null ? null : ((ValueComparer<CompiledModelTestBase.AnEnum?>)(((IProperty)enum20).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.AnEnum?>(enum20))), ((ValueComparer<CompiledModelTestBase.AFlagsEnum>)(((IProperty)flagsEnum10).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.AFlagsEnum>(flagsEnum10)), ((ValueComparer<CompiledModelTestBase.AFlagsEnum>)(((IProperty)flagsEnum20).GetValueComparer())).Snapshot(source.GetCurrentValue<CompiledModelTestBase.AFlagsEnum>(flagsEnum20)))));
                     var structuralType2 = ((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(source.Entity));
-                    return ((ISnapshot)(new MultiSnapshot(new ISnapshot[] { liftedArg0, ((ISnapshot)(new Snapshot<long?, IPAddress[], IEnumerable<string>, IList<string>, List<IPAddress>, DateTime[], IEnumerable<byte>, IList<byte>, List<short>, object>((source.GetCurrentValue<long?>(id0) == null ? null : ((ValueComparer<long?>)(((IProperty)id0).GetValueComparer())).Snapshot(source.GetCurrentValue<long?>(id0))), (((object)(source.GetCurrentValue<IPAddress[]>(refTypeArray1))) == null ? null : ((IPAddress[])(((ValueComparer<object>)(((IProperty)refTypeArray1).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<IPAddress[]>(refTypeArray1))))))), (((object)(source.GetCurrentValue<IEnumerable<string>>(refTypeEnumerable1))) == null ? null : ((IEnumerable<string>)(((ValueComparer<object>)(((IProperty)refTypeEnumerable1).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<IEnumerable<string>>(refTypeEnumerable1))))))), (((object)(source.GetCurrentValue<IList<string>>(refTypeIList1))) == null ? null : ((IList<string>)(((ValueComparer<object>)(((IProperty)refTypeIList1).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<IList<string>>(refTypeIList1))))))), (((object)(source.GetCurrentValue<List<IPAddress>>(refTypeList1))) == null ? null : ((List<IPAddress>)(((ValueComparer<object>)(((IProperty)refTypeList1).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<List<IPAddress>>(refTypeList1))))))), (((IEnumerable<DateTime>)(source.GetCurrentValue<DateTime[]>(valueTypeArray1))) == null ? null : ((DateTime[])(((ValueComparer<IEnumerable<DateTime>>)(((IProperty)valueTypeArray1).GetValueComparer())).Snapshot(((IEnumerable<DateTime>)(source.GetCurrentValue<DateTime[]>(valueTypeArray1))))))), (source.GetCurrentValue<IEnumerable<byte>>(valueTypeEnumerable1) == null ? null : ((ValueComparer<IEnumerable<byte>>)(((IProperty)valueTypeEnumerable1).GetValueComparer())).Snapshot(source.GetCurrentValue<IEnumerable<byte>>(valueTypeEnumerable1))), (((IEnumerable<byte>)(source.GetCurrentValue<IList<byte>>(valueTypeIList1))) == null ? null : ((IList<byte>)(((ValueComparer<IEnumerable<byte>>)(((IProperty)valueTypeIList1).GetValueComparer())).Snapshot(((IEnumerable<byte>)(source.GetCurrentValue<IList<byte>>(valueTypeIList1))))))), (((IEnumerable<short>)(source.GetCurrentValue<List<short>>(valueTypeList1))) == null ? null : ((List<short>)(((ValueComparer<IEnumerable<short>>)(((IProperty)valueTypeList1).GetValueComparer())).Snapshot(((IEnumerable<short>)(source.GetCurrentValue<List<short>>(valueTypeList1))))))), SnapshotFactoryFactory.SnapshotComplexCollection(((IEnumerable)(source.GetCurrentValue<IList<CompiledModelTestBase.OwnedType>>(manyOwned))))))) })));
+                    return ((ISnapshot)(new MultiSnapshot(new ISnapshot[] { liftedArg0, ((ISnapshot)(new Snapshot<long?, IPAddress[], IEnumerable<string>, IList<string>, List<IPAddress>, DateTime[], IEnumerable<byte>, IList<byte>, List<short>, object>((source.GetCurrentValue<long?>(id0) == null ? null : ((ValueComparer<long?>)(((IProperty)id0).GetValueComparer())).Snapshot(source.GetCurrentValue<long?>(id0))), (((object)(source.GetCurrentValue<IPAddress[]>(refTypeArray1))) == null ? null : ((IPAddress[])(((ValueComparer<object>)(((IProperty)refTypeArray1).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<IPAddress[]>(refTypeArray1))))))), (((object)(source.GetCurrentValue<IEnumerable<string>>(refTypeEnumerable1))) == null ? null : ((IEnumerable<string>)(((ValueComparer<object>)(((IProperty)refTypeEnumerable1).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<IEnumerable<string>>(refTypeEnumerable1))))))), (((object)(source.GetCurrentValue<IList<string>>(refTypeIList1))) == null ? null : ((IList<string>)(((ValueComparer<object>)(((IProperty)refTypeIList1).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<IList<string>>(refTypeIList1))))))), (((object)(source.GetCurrentValue<List<IPAddress>>(refTypeList1))) == null ? null : ((List<IPAddress>)(((ValueComparer<object>)(((IProperty)refTypeList1).GetValueComparer())).Snapshot(((object)(source.GetCurrentValue<List<IPAddress>>(refTypeList1))))))), (((IEnumerable<DateTime>)(source.GetCurrentValue<DateTime[]>(valueTypeArray1))) == null ? null : ((DateTime[])(((ValueComparer<IEnumerable<DateTime>>)(((IProperty)valueTypeArray1).GetValueComparer())).Snapshot(((IEnumerable<DateTime>)(source.GetCurrentValue<DateTime[]>(valueTypeArray1))))))), (source.GetCurrentValue<IEnumerable<byte>>(valueTypeEnumerable1) == null ? null : ((ValueComparer<IEnumerable<byte>>)(((IProperty)valueTypeEnumerable1).GetValueComparer())).Snapshot(source.GetCurrentValue<IEnumerable<byte>>(valueTypeEnumerable1))), (((IEnumerable<byte>)(source.GetCurrentValue<IList<byte>>(valueTypeIList1))) == null ? null : ((IList<byte>)(((ValueComparer<IEnumerable<byte>>)(((IProperty)valueTypeIList1).GetValueComparer())).Snapshot(((IEnumerable<byte>)(source.GetCurrentValue<IList<byte>>(valueTypeIList1))))))), (((IEnumerable<short>)(source.GetCurrentValue<List<short>>(valueTypeList1))) == null ? null : ((List<short>)(((ValueComparer<IEnumerable<short>>)(((IProperty)valueTypeList1).GetValueComparer())).Snapshot(((IEnumerable<short>)(source.GetCurrentValue<List<short>>(valueTypeList1))))))), SnapshotFactoryFactory.SnapshotComplexCollection(((IList)(source.GetCurrentValue<IList<CompiledModelTestBase.OwnedType>>(manyOwned))), manyOwned)))) })));
                 });
             runtimeEntityType.SetStoreGeneratedValuesFactory(
                 ISnapshot () => ((ISnapshot)(new Snapshot<long?, long?, string>((default(long? ) == null ? null : ((ValueComparer<long?>)(((IProperty)id).GetValueComparer())).Snapshot(default(long? ))), (default(long? ) == null ? null : ((ValueComparer<long?>)(((IProperty)principalBaseId).GetValueComparer())).Snapshot(default(long? ))), (default(string) == null ? null : ((ValueComparer<string>)(((IProperty)details).GetValueComparer())).Snapshot(default(string)))))));
@@ -2228,7 +2487,7 @@ namespace TestNamespace
                 ISnapshot (IInternalEntry source) =>
                 {
                     var structuralType3 = ((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<byte?>>)(source.Entity));
-                    return ((ISnapshot)(new Snapshot<long?, long?, object>((source.GetCurrentValue<long?>(id) == null ? null : ((ValueComparer<long?>)(((IProperty)id).GetKeyValueComparer())).Snapshot(source.GetCurrentValue<long?>(id))), (source.GetCurrentValue<long?>(principalBaseId) == null ? null : ((ValueComparer<long?>)(((IProperty)principalBaseId).GetKeyValueComparer())).Snapshot(source.GetCurrentValue<long?>(principalBaseId))), SnapshotFactoryFactory.SnapshotCollection(((IEnumerable)(source.GetCurrentValue<ICollection<CompiledModelTestBase.PrincipalBase>>(deriveds)))))));
+                    return ((ISnapshot)(new Snapshot<long?, long?, object>((source.GetCurrentValue<long?>(id) == null ? null : ((ValueComparer<long?>)(((IProperty)id).GetKeyValueComparer())).Snapshot(source.GetCurrentValue<long?>(id))), (source.GetCurrentValue<long?>(principalBaseId) == null ? null : ((ValueComparer<long?>)(((IProperty)principalBaseId).GetKeyValueComparer())).Snapshot(source.GetCurrentValue<long?>(principalBaseId))), SnapshotFactoryFactory.SnapshotCollection(source.GetCurrentValue<ICollection<CompiledModelTestBase.PrincipalBase>>(deriveds)))));
                 });
             runtimeEntityType.SetCounts(new PropertyCounts(
                 propertyCount: 39,

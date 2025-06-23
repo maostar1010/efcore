@@ -41,9 +41,17 @@ namespace TestNamespace
                 int (CompiledModelRelationalTestBase.SpatialTypes instance) => AbstractBaseUnsafeAccessors.Id(instance),
                 bool (CompiledModelRelationalTestBase.SpatialTypes instance) => AbstractBaseUnsafeAccessors.Id(instance) == 0);
             id.SetSetter(
-                (CompiledModelRelationalTestBase.SpatialTypes entity, IReadOnlyList<int> indices, int value) => AbstractBaseUnsafeAccessors.Id(entity) = value);
+                CompiledModelRelationalTestBase.SpatialTypes (CompiledModelRelationalTestBase.SpatialTypes instance, int value) =>
+                {
+                    AbstractBaseUnsafeAccessors.Id(instance) = value;
+                    return instance;
+                });
             id.SetMaterializationSetter(
-                (CompiledModelRelationalTestBase.SpatialTypes entity, IReadOnlyList<int> indices, int value) => AbstractBaseUnsafeAccessors.Id(entity) = value);
+                CompiledModelRelationalTestBase.SpatialTypes (CompiledModelRelationalTestBase.SpatialTypes instance, int value) =>
+                {
+                    AbstractBaseUnsafeAccessors.Id(instance) = value;
+                    return instance;
+                });
             id.SetAccessors(
                 int (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(0) ? entry.ReadStoreGeneratedValue<int>(0) : (entry.FlaggedAsTemporary(0) && AbstractBaseUnsafeAccessors.Id(((CompiledModelRelationalTestBase.SpatialTypes)(entry.Entity))) == 0 ? entry.ReadTemporaryValue<int>(0) : AbstractBaseUnsafeAccessors.Id(((CompiledModelRelationalTestBase.SpatialTypes)(entry.Entity))))),
                 int (IInternalEntry entry) => AbstractBaseUnsafeAccessors.Id(((CompiledModelRelationalTestBase.SpatialTypes)(entry.Entity))),

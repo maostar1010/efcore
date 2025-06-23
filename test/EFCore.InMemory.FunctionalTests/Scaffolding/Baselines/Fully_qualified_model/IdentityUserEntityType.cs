@@ -42,9 +42,17 @@ namespace Scaffolding
                 string (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.Id(instance),
                 bool (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.Id(instance) == null);
             id.SetSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, string value) => IdentityUserUnsafeAccessors<string>.Id(entity) = value);
+                IdentityUser (IdentityUser instance, string value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.Id(instance) = value;
+                    return instance;
+                });
             id.SetMaterializationSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, string value) => IdentityUserUnsafeAccessors<string>.Id(entity) = value);
+                IdentityUser (IdentityUser instance, string value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.Id(instance) = value;
+                    return instance;
+                });
             id.SetAccessors(
                 string (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.Id(((IdentityUser)(entry.Entity))),
                 string (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.Id(((IdentityUser)(entry.Entity))),
@@ -83,9 +91,17 @@ namespace Scaffolding
                 int (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.AccessFailedCount(instance),
                 bool (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.AccessFailedCount(instance) == 0);
             accessFailedCount.SetSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, int value) => IdentityUserUnsafeAccessors<string>.AccessFailedCount(entity) = value);
+                IdentityUser (IdentityUser instance, int value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.AccessFailedCount(instance) = value;
+                    return instance;
+                });
             accessFailedCount.SetMaterializationSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, int value) => IdentityUserUnsafeAccessors<string>.AccessFailedCount(entity) = value);
+                IdentityUser (IdentityUser instance, int value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.AccessFailedCount(instance) = value;
+                    return instance;
+                });
             accessFailedCount.SetAccessors(
                 int (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.AccessFailedCount(((IdentityUser)(entry.Entity))),
                 int (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.AccessFailedCount(((IdentityUser)(entry.Entity))),
@@ -123,9 +139,17 @@ namespace Scaffolding
                 string (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.ConcurrencyStamp(instance),
                 bool (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.ConcurrencyStamp(instance) == null);
             concurrencyStamp.SetSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, string value) => IdentityUserUnsafeAccessors<string>.ConcurrencyStamp(entity) = value);
+                IdentityUser (IdentityUser instance, string value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.ConcurrencyStamp(instance) = value;
+                    return instance;
+                });
             concurrencyStamp.SetMaterializationSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, string value) => IdentityUserUnsafeAccessors<string>.ConcurrencyStamp(entity) = value);
+                IdentityUser (IdentityUser instance, string value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.ConcurrencyStamp(instance) = value;
+                    return instance;
+                });
             concurrencyStamp.SetAccessors(
                 string (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.ConcurrencyStamp(((IdentityUser)(entry.Entity))),
                 string (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.ConcurrencyStamp(((IdentityUser)(entry.Entity))),
@@ -195,9 +219,17 @@ namespace Scaffolding
                 string (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.Email(instance),
                 bool (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.Email(instance) == null);
             email.SetSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, string value) => IdentityUserUnsafeAccessors<string>.Email(entity) = value);
+                IdentityUser (IdentityUser instance, string value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.Email(instance) = value;
+                    return instance;
+                });
             email.SetMaterializationSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, string value) => IdentityUserUnsafeAccessors<string>.Email(entity) = value);
+                IdentityUser (IdentityUser instance, string value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.Email(instance) = value;
+                    return instance;
+                });
             email.SetAccessors(
                 string (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.Email(((IdentityUser)(entry.Entity))),
                 string (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.Email(((IdentityUser)(entry.Entity))),
@@ -235,9 +267,17 @@ namespace Scaffolding
                 bool (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.EmailConfirmed(instance),
                 bool (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.EmailConfirmed(instance) == false);
             emailConfirmed.SetSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, bool value) => IdentityUserUnsafeAccessors<string>.EmailConfirmed(entity) = value);
+                IdentityUser (IdentityUser instance, bool value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.EmailConfirmed(instance) = value;
+                    return instance;
+                });
             emailConfirmed.SetMaterializationSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, bool value) => IdentityUserUnsafeAccessors<string>.EmailConfirmed(entity) = value);
+                IdentityUser (IdentityUser instance, bool value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.EmailConfirmed(instance) = value;
+                    return instance;
+                });
             emailConfirmed.SetAccessors(
                 bool (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.EmailConfirmed(((IdentityUser)(entry.Entity))),
                 bool (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.EmailConfirmed(((IdentityUser)(entry.Entity))),
@@ -275,9 +315,17 @@ namespace Scaffolding
                 bool (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.LockoutEnabled(instance),
                 bool (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.LockoutEnabled(instance) == false);
             lockoutEnabled.SetSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, bool value) => IdentityUserUnsafeAccessors<string>.LockoutEnabled(entity) = value);
+                IdentityUser (IdentityUser instance, bool value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.LockoutEnabled(instance) = value;
+                    return instance;
+                });
             lockoutEnabled.SetMaterializationSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, bool value) => IdentityUserUnsafeAccessors<string>.LockoutEnabled(entity) = value);
+                IdentityUser (IdentityUser instance, bool value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.LockoutEnabled(instance) = value;
+                    return instance;
+                });
             lockoutEnabled.SetAccessors(
                 bool (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.LockoutEnabled(((IdentityUser)(entry.Entity))),
                 bool (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.LockoutEnabled(((IdentityUser)(entry.Entity))),
@@ -315,9 +363,17 @@ namespace Scaffolding
                 DateTimeOffset? (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.LockoutEnd(instance),
                 bool (IdentityUser instance) => !(IdentityUserUnsafeAccessors<string>.LockoutEnd(instance).HasValue));
             lockoutEnd.SetSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, DateTimeOffset? value) => IdentityUserUnsafeAccessors<string>.LockoutEnd(entity) = value);
+                IdentityUser (IdentityUser instance, DateTimeOffset? value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.LockoutEnd(instance) = value;
+                    return instance;
+                });
             lockoutEnd.SetMaterializationSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, DateTimeOffset? value) => IdentityUserUnsafeAccessors<string>.LockoutEnd(entity) = value);
+                IdentityUser (IdentityUser instance, DateTimeOffset? value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.LockoutEnd(instance) = value;
+                    return instance;
+                });
             lockoutEnd.SetAccessors(
                 DateTimeOffset? (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.LockoutEnd(((IdentityUser)(entry.Entity))),
                 DateTimeOffset? (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.LockoutEnd(((IdentityUser)(entry.Entity))),
@@ -357,9 +413,17 @@ namespace Scaffolding
                 string (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.NormalizedEmail(instance),
                 bool (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.NormalizedEmail(instance) == null);
             normalizedEmail.SetSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, string value) => IdentityUserUnsafeAccessors<string>.NormalizedEmail(entity) = value);
+                IdentityUser (IdentityUser instance, string value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.NormalizedEmail(instance) = value;
+                    return instance;
+                });
             normalizedEmail.SetMaterializationSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, string value) => IdentityUserUnsafeAccessors<string>.NormalizedEmail(entity) = value);
+                IdentityUser (IdentityUser instance, string value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.NormalizedEmail(instance) = value;
+                    return instance;
+                });
             normalizedEmail.SetAccessors(
                 string (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.NormalizedEmail(((IdentityUser)(entry.Entity))),
                 string (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.NormalizedEmail(((IdentityUser)(entry.Entity))),
@@ -397,9 +461,17 @@ namespace Scaffolding
                 string (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.NormalizedUserName(instance),
                 bool (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.NormalizedUserName(instance) == null);
             normalizedUserName.SetSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, string value) => IdentityUserUnsafeAccessors<string>.NormalizedUserName(entity) = value);
+                IdentityUser (IdentityUser instance, string value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.NormalizedUserName(instance) = value;
+                    return instance;
+                });
             normalizedUserName.SetMaterializationSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, string value) => IdentityUserUnsafeAccessors<string>.NormalizedUserName(entity) = value);
+                IdentityUser (IdentityUser instance, string value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.NormalizedUserName(instance) = value;
+                    return instance;
+                });
             normalizedUserName.SetAccessors(
                 string (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.NormalizedUserName(((IdentityUser)(entry.Entity))),
                 string (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.NormalizedUserName(((IdentityUser)(entry.Entity))),
@@ -437,9 +509,17 @@ namespace Scaffolding
                 string (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.PasswordHash(instance),
                 bool (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.PasswordHash(instance) == null);
             passwordHash.SetSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, string value) => IdentityUserUnsafeAccessors<string>.PasswordHash(entity) = value);
+                IdentityUser (IdentityUser instance, string value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.PasswordHash(instance) = value;
+                    return instance;
+                });
             passwordHash.SetMaterializationSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, string value) => IdentityUserUnsafeAccessors<string>.PasswordHash(entity) = value);
+                IdentityUser (IdentityUser instance, string value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.PasswordHash(instance) = value;
+                    return instance;
+                });
             passwordHash.SetAccessors(
                 string (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.PasswordHash(((IdentityUser)(entry.Entity))),
                 string (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.PasswordHash(((IdentityUser)(entry.Entity))),
@@ -477,9 +557,17 @@ namespace Scaffolding
                 string (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.PhoneNumber(instance),
                 bool (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.PhoneNumber(instance) == null);
             phoneNumber.SetSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, string value) => IdentityUserUnsafeAccessors<string>.PhoneNumber(entity) = value);
+                IdentityUser (IdentityUser instance, string value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.PhoneNumber(instance) = value;
+                    return instance;
+                });
             phoneNumber.SetMaterializationSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, string value) => IdentityUserUnsafeAccessors<string>.PhoneNumber(entity) = value);
+                IdentityUser (IdentityUser instance, string value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.PhoneNumber(instance) = value;
+                    return instance;
+                });
             phoneNumber.SetAccessors(
                 string (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.PhoneNumber(((IdentityUser)(entry.Entity))),
                 string (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.PhoneNumber(((IdentityUser)(entry.Entity))),
@@ -517,9 +605,17 @@ namespace Scaffolding
                 bool (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.PhoneNumberConfirmed(instance),
                 bool (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.PhoneNumberConfirmed(instance) == false);
             phoneNumberConfirmed.SetSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, bool value) => IdentityUserUnsafeAccessors<string>.PhoneNumberConfirmed(entity) = value);
+                IdentityUser (IdentityUser instance, bool value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.PhoneNumberConfirmed(instance) = value;
+                    return instance;
+                });
             phoneNumberConfirmed.SetMaterializationSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, bool value) => IdentityUserUnsafeAccessors<string>.PhoneNumberConfirmed(entity) = value);
+                IdentityUser (IdentityUser instance, bool value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.PhoneNumberConfirmed(instance) = value;
+                    return instance;
+                });
             phoneNumberConfirmed.SetAccessors(
                 bool (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.PhoneNumberConfirmed(((IdentityUser)(entry.Entity))),
                 bool (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.PhoneNumberConfirmed(((IdentityUser)(entry.Entity))),
@@ -557,9 +653,17 @@ namespace Scaffolding
                 string (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.SecurityStamp(instance),
                 bool (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.SecurityStamp(instance) == null);
             securityStamp.SetSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, string value) => IdentityUserUnsafeAccessors<string>.SecurityStamp(entity) = value);
+                IdentityUser (IdentityUser instance, string value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.SecurityStamp(instance) = value;
+                    return instance;
+                });
             securityStamp.SetMaterializationSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, string value) => IdentityUserUnsafeAccessors<string>.SecurityStamp(entity) = value);
+                IdentityUser (IdentityUser instance, string value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.SecurityStamp(instance) = value;
+                    return instance;
+                });
             securityStamp.SetAccessors(
                 string (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.SecurityStamp(((IdentityUser)(entry.Entity))),
                 string (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.SecurityStamp(((IdentityUser)(entry.Entity))),
@@ -597,9 +701,17 @@ namespace Scaffolding
                 bool (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.TwoFactorEnabled(instance),
                 bool (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.TwoFactorEnabled(instance) == false);
             twoFactorEnabled.SetSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, bool value) => IdentityUserUnsafeAccessors<string>.TwoFactorEnabled(entity) = value);
+                IdentityUser (IdentityUser instance, bool value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.TwoFactorEnabled(instance) = value;
+                    return instance;
+                });
             twoFactorEnabled.SetMaterializationSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, bool value) => IdentityUserUnsafeAccessors<string>.TwoFactorEnabled(entity) = value);
+                IdentityUser (IdentityUser instance, bool value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.TwoFactorEnabled(instance) = value;
+                    return instance;
+                });
             twoFactorEnabled.SetAccessors(
                 bool (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.TwoFactorEnabled(((IdentityUser)(entry.Entity))),
                 bool (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.TwoFactorEnabled(((IdentityUser)(entry.Entity))),
@@ -637,9 +749,17 @@ namespace Scaffolding
                 string (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.UserName(instance),
                 bool (IdentityUser instance) => IdentityUserUnsafeAccessors<string>.UserName(instance) == null);
             userName.SetSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, string value) => IdentityUserUnsafeAccessors<string>.UserName(entity) = value);
+                IdentityUser (IdentityUser instance, string value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.UserName(instance) = value;
+                    return instance;
+                });
             userName.SetMaterializationSetter(
-                (IdentityUser entity, IReadOnlyList<int> indices, string value) => IdentityUserUnsafeAccessors<string>.UserName(entity) = value);
+                IdentityUser (IdentityUser instance, string value) =>
+                {
+                    IdentityUserUnsafeAccessors<string>.UserName(instance) = value;
+                    return instance;
+                });
             userName.SetAccessors(
                 string (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.UserName(((IdentityUser)(entry.Entity))),
                 string (IInternalEntry entry) => IdentityUserUnsafeAccessors<string>.UserName(((IdentityUser)(entry.Entity))),

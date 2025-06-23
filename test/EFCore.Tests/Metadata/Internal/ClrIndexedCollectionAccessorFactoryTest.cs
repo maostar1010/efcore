@@ -41,7 +41,7 @@ public class ClrIndexedCollectionAccessorFactoryTest
         var value = accessor.Get(entity, 1);
         Assert.Equal(20, ((TestComplexType)value!).Number);
 
-        var genericAccessor = Assert.IsType<ClrIndexedCollectionAccessor<TestEntity<List<TestComplexType>>, TestComplexType>>(accessor);
+        var genericAccessor = Assert.IsType<ClrIndexedCollectionAccessor<TestEntity<List<TestComplexType>>, List<TestComplexType>, TestComplexType>>(accessor);
 
         var genericValue = genericAccessor.Get(entity, 1);
 

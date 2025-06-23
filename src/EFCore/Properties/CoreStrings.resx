@@ -1462,6 +1462,9 @@
   <data name="PropertyInUseKey" xml:space="preserve">
     <value>The property '{property}' cannot be removed from the type '{entityType}' because it is being used in the key {keyProperties}. All containing keys must be removed or redefined before the property can be removed.</value>
   </data>
+  <data name="PropertyIsNotACollection" xml:space="preserve">
+    <value>The property '{propertyName}' on entity type '{entityType}' is not a collection property and cannot be used with indexed collection accessors.</value>
+  </data>
   <data name="PropertyMethodInvoked" xml:space="preserve">
     <value>The EF.Property&lt;T&gt; method may only be used within Entity Framework LINQ queries.</value>
   </data>

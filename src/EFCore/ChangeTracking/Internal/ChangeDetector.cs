@@ -296,7 +296,13 @@ public class ChangeDetector : IChangeDetector
         return changesFound;
     }
 
-    private bool DetectComplexCollectionChanges(InternalEntryBase entry, IComplexProperty complexProperty)
+    /// <summary>
+    ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to
+    ///     the same compatibility standards as public APIs. It may be changed or removed without notice in
+    ///     any release. You should only use it directly in your code with extreme caution and knowing that
+    ///     doing so can result in application failures when updating to a new Entity Framework Core release.
+    /// </summary>
+    public bool DetectComplexCollectionChanges(InternalEntryBase entry, IComplexProperty complexProperty)
     {
         Check.DebugAssert(complexProperty.IsCollection, $"Expected {complexProperty.Name} to be a collection.");
 
@@ -429,28 +435,29 @@ public class ChangeDetector : IChangeDetector
                     else
                     {
                         added.Add(i);
-                        if (currentEntry.EntityState is not EntityState.Detached and not EntityState.Added)
-                        {
-                            // If the element was newly added then there should be a null entry at some ordinal, otherwise it will be treated as a replacement.
-                            var nullEntryOrdinal = -1;
-                            for (var j = i + 1; j < currentEntries.Count; j++)
-                            {
-                                if (currentEntries[j] == null)
-                                {
-                                    nullEntryOrdinal = j;
-                                    break;
-                                }
-                            }
-
-                            if (nullEntryOrdinal != -1)
-                            {
-                                entry.MoveComplexCollectionEntry(complexProperty, nullEntryOrdinal, i);
-                            }
-                        }
                     }
                 }
             }
         }
+
+        //if (currentEntry.EntityState is not EntityState.Detached and not EntityState.Added)
+        //{
+        //    // If the element was newly added then there should be a null entry at some ordinal, otherwise it will be treated as a replacement.
+        //    var nullEntryOrdinal = -1;
+        //    for (var j = i + 1; j < currentEntries.Count; j++)
+        //    {
+        //        if (currentEntries[j] == null)
+        //        {
+        //            nullEntryOrdinal = j;
+        //            break;
+        //        }
+        //    }
+
+        //    if (nullEntryOrdinal != -1)
+        //    {
+        //        entry.MoveComplexCollectionEntry(complexProperty, nullEntryOrdinal, i);
+        //    }
+        //}
 
         // Try to match up the added entries with the original nulls or removed elements.
         foreach (var addedOrdinal in added)
@@ -470,7 +477,7 @@ public class ChangeDetector : IChangeDetector
                     var (removedElement, originalOrdinal) = removed.First();
                     removed.Remove(removedElement);
                     currentEntry.OriginalOrdinal = originalOrdinal;
-                    currentEntry.SetEntityState(EntityState.Unchanged);
+                    currentEntry.SetEntityState(EntityState.Modified);
                 }
                 else
                 {
@@ -480,10 +487,17 @@ public class ChangeDetector : IChangeDetector
             }
             else if (!originalNulls.Remove(currentEntry.OriginalOrdinal))
             {
-                var removedElement = removed.FirstOrDefault(r => r.Value == currentEntry.OriginalOrdinal);
-                if (removedElement.Key != null)
+                var removedPair = removed.FirstOrDefault(r => r.Value == currentEntry.OriginalOrdinal);
+                if (removedPair.Key != null)
                 {
-                    removed.Remove(removedElement.Key);
+                    removed.Remove(removedPair.Key);
+                }
+                else if (removed.Count > 0)
+                {
+                    var (removedElement, originalOrdinal) = removed.First();
+                    removed.Remove(removedElement);
+                    currentEntry.OriginalOrdinal = originalOrdinal;
+                    currentEntry.SetEntityState(EntityState.Unchanged);
                 }
                 else
                 {

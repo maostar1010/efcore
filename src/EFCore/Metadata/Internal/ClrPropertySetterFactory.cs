@@ -51,8 +51,13 @@ public class ClrPropertySetterFactory : ClrAccessorFactory<IClrPropertySetter>
         MemberInfo memberInfo,
         IPropertyBase? propertyBase)
     {
-        CreateExpression<TRoot, TDeclaring, TValue>(memberInfo, propertyBase, out var setter);
-        return new ClrPropertySetter<TRoot, TValue>(setter.Compile());
+        CreateExpressions<TRoot, TDeclaring, TValue>(
+            memberInfo, propertyBase, 
+            out var setterUsingContainingEntityExpression,
+            out var setterExpression);
+        return new ClrPropertySetter<TRoot, TDeclaring, TValue>(
+            setterUsingContainingEntityExpression.Compile(),
+            setterExpression.Compile());
     }
 
     /// <summary>
@@ -72,6 +77,7 @@ public class ClrPropertySetterFactory : ClrAccessorFactory<IClrPropertySetter>
     /// </summary>
     public virtual void Create(
         IPropertyBase propertyBase,
+        out Expression setterUsingContainingEntityExpression,
         out Expression setterExpression)
     {
         var boundMethod = GenericCreateExpression.MakeGenericMethod(
@@ -81,9 +87,10 @@ public class ClrPropertySetterFactory : ClrAccessorFactory<IClrPropertySetter>
 
         try
         {
-            var parameters = new object?[] { GetMemberInfo(propertyBase), propertyBase, null };
+            var parameters = new object?[] { GetMemberInfo(propertyBase), propertyBase, null, null };
             boundMethod.Invoke(this, parameters);
-            setterExpression = (Expression)parameters[2]!;
+            setterUsingContainingEntityExpression = (Expression)parameters[2]!;
+            setterExpression = (Expression)parameters[3]!;
         }
         catch (TargetInvocationException e) when (e.InnerException != null)
         {
@@ -93,23 +100,25 @@ public class ClrPropertySetterFactory : ClrAccessorFactory<IClrPropertySetter>
     }
 
     private static readonly MethodInfo GenericCreateExpression
-        = typeof(ClrPropertySetterFactory).GetMethod(nameof(CreateExpression), BindingFlags.Instance | BindingFlags.NonPublic)!;
+        = typeof(ClrPropertySetterFactory).GetMethod(nameof(CreateExpressions), BindingFlags.Instance | BindingFlags.NonPublic)!;
 
     private static readonly MethodInfo ComplexCollectionNullElementSetterException = typeof(CoreStrings).GetMethod(nameof(CoreStrings.ComplexCollectionNullElementSetter))!;
 
-    private void CreateExpression<TRoot, TDeclaring, TValue>(
+    private void CreateExpressions<TRoot, TDeclaring, TValue>(
         MemberInfo memberInfo,
         IPropertyBase? propertyBase,
-        out Expression<Action<TRoot, IReadOnlyList<int>, TValue>> setterExpression)
+        out Expression<Action<TRoot, IReadOnlyList<int>, TValue>> setterUsingContainingEntityExpression,
+        out Expression<Func<TDeclaring, TValue, TDeclaring>> setterExpression)
         where TRoot : class
     {
-        var entityClrType = propertyBase?.DeclaringType.ContainingEntityType.ClrType ?? typeof(TRoot);
-        var propertyDeclaringType = propertyBase?.DeclaringType.ClrType ?? typeof(TDeclaring);
-        var entityParameter = Expression.Parameter(entityClrType, "entity");
-        var indicesParameter = Expression.Parameter(typeof(IReadOnlyList<int>), "indices");
-        var valueParameter = Expression.Parameter(typeof(TValue), "value");
+        CreateExpressionUsingContainingEntity<TRoot, TDeclaring, TValue>(memberInfo, propertyBase, out setterUsingContainingEntityExpression);
+        CreateDirectExpression(memberInfo, propertyBase, out setterExpression);
+    }
+
+    private static Expression CreateConvertedValueExpression(Expression valueParameter, MemberInfo memberInfo, IPropertyBase? propertyBase)
+    {
         var memberType = memberInfo.GetMemberType();
-        var convertedParameter = (Expression)valueParameter;
+        var convertedParameter = valueParameter;
 
         var propertyType = propertyBase?.ClrType ?? memberType;
         if (propertyType.IsNullableType())
@@ -128,6 +137,33 @@ public class ClrPropertySetterFactory : ClrAccessorFactory<IClrPropertySetter>
         {
             convertedParameter = Expression.Convert(convertedParameter, memberType);
         }
+
+        return convertedParameter;
+    }
+
+    private static Expression CreateSimplePropertyAssignment(MemberInfo memberInfo, IPropertyBase? propertyBase, Expression instanceParameter, Expression convertedParameter)
+    {
+        return propertyBase?.IsIndexerProperty() == true
+            ? Expression.Assign(
+                Expression.MakeIndex(
+                    instanceParameter, (PropertyInfo)memberInfo, [Expression.Constant(propertyBase.Name)]),
+                convertedParameter)
+            : Expression.MakeMemberAccess(instanceParameter, memberInfo).Assign(convertedParameter);
+    }
+
+    private void CreateExpressionUsingContainingEntity<TRoot, TDeclaring, TValue>(
+        MemberInfo memberInfo,
+        IPropertyBase? propertyBase,
+        out Expression<Action<TRoot, IReadOnlyList<int>, TValue>> setterExpression)
+        where TRoot : class
+    {
+        var entityClrType = propertyBase?.DeclaringType.ContainingEntityType.ClrType ?? typeof(TRoot);
+        var propertyDeclaringType = propertyBase?.DeclaringType.ClrType ?? typeof(TDeclaring);
+        var entityParameter = Expression.Parameter(entityClrType, "entity");
+        var indicesParameter = Expression.Parameter(typeof(IReadOnlyList<int>), "indices");
+        var valueParameter = Expression.Parameter(typeof(TValue), "value");
+        
+        var convertedParameter = CreateConvertedValueExpression(valueParameter, memberInfo, propertyBase);
 
         Expression writeExpression;
         if (memberInfo.DeclaringType!.IsAssignableFrom(propertyDeclaringType))
@@ -167,12 +203,7 @@ public class ClrPropertySetterFactory : ClrAccessorFactory<IClrPropertySetter>
         {
             if (propertyBase?.DeclaringType is not IComplexType complexType)
             {
-                return propertyBase?.IsIndexerProperty() == true
-                    ? Expression.Assign(
-                        Expression.MakeIndex(
-                            instanceParameter, (PropertyInfo)memberInfo, [Expression.Constant(propertyBase.Name)]),
-                        convertedParameter)
-                    : Expression.MakeMemberAccess(instanceParameter, memberInfo).Assign(convertedParameter);
+                return CreateSimplePropertyAssignment(memberInfo, propertyBase, instanceParameter, convertedParameter);
             }
 
             // The idea here is to create something like this:
@@ -293,5 +324,25 @@ public class ClrPropertySetterFactory : ClrAccessorFactory<IClrPropertySetter>
 
             return Expression.Block(variables, statements);
         }
+    }
+
+    private void CreateDirectExpression<TDeclaring, TValue>(
+        MemberInfo memberInfo,
+        IPropertyBase? propertyBase,
+        out Expression<Func<TDeclaring, TValue, TDeclaring>> setterExpression)
+    {
+        var instanceParameter = Expression.Parameter(typeof(TDeclaring), "instance");
+        var valueParameter = Expression.Parameter(typeof(TValue), "value");
+        
+        var convertedParameter = CreateConvertedValueExpression(valueParameter, memberInfo, propertyBase);
+
+        Expression writeExpression = Expression.Block(
+            CreateSimplePropertyAssignment(memberInfo, propertyBase, instanceParameter, convertedParameter),
+            instanceParameter);
+
+        setterExpression = Expression.Lambda<Func<TDeclaring, TValue, TDeclaring>>(
+            writeExpression,
+            instanceParameter,
+            valueParameter);
     }
 }

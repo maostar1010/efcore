@@ -958,6 +958,11 @@ public abstract partial class InternalEntryBase : IInternalEntry
                 ((StateManager as StateManager)?.ChangeDetector as ChangeDetector)?.DetectValueChange(this, property);
             }
         }
+        else if (propertyBase is IComplexProperty complexProperty && complexProperty.IsCollection
+            && EntityState is EntityState.Unchanged or EntityState.Modified)
+        {
+            ((StateManager as StateManager)?.ChangeDetector as ChangeDetector)?.DetectComplexCollectionChanges(this, complexProperty);
+        }
     }
 
     /// <summary>
@@ -1333,7 +1338,16 @@ public abstract partial class InternalEntryBase : IInternalEntry
     ///     doing so can result in application failures when updating to a new Entity Framework Core release.
     /// </summary>
     protected virtual void OnPropertyChanged(IPropertyBase propertyBase, object? value, bool setModified)
-        => StateManager.InternalEntityEntryNotifier.PropertyChanged(this, propertyBase, setModified);
+    {
+        StateManager.InternalEntityEntryNotifier.PropertyChanged(this, propertyBase, setModified);
+
+        if (propertyBase is IComplexProperty complexProperty && complexProperty.IsCollection)
+        {
+            // Trigger change detection for complex collections to ensure InternalComplexEntry states are updated
+            var changeDetector = (StateManager as StateManager)?.ChangeDetector;
+            changeDetector?.DetectComplexCollectionChanges(this, complexProperty);
+        }
+    }
 
     /// <summary>
     ///     This is an internal API that supports the Entity Framework Core infrastructure and not subject to

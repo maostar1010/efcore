@@ -41,9 +41,17 @@ namespace TestNamespace
                 string (CompiledModelTestBase.DependentDerived<byte?> instance) => DependentDerivedUnsafeAccessors<byte?>.Data(instance),
                 bool (CompiledModelTestBase.DependentDerived<byte?> instance) => DependentDerivedUnsafeAccessors<byte?>.Data(instance) == null);
             data.SetSetter(
-                (CompiledModelTestBase.DependentDerived<byte?> entity, IReadOnlyList<int> indices, string value) => DependentDerivedUnsafeAccessors<byte?>.Data(entity) = value);
+                CompiledModelTestBase.DependentDerived<byte?> (CompiledModelTestBase.DependentDerived<byte?> instance, string value) =>
+                {
+                    DependentDerivedUnsafeAccessors<byte?>.Data(instance) = value;
+                    return instance;
+                });
             data.SetMaterializationSetter(
-                (CompiledModelTestBase.DependentDerived<byte?> entity, IReadOnlyList<int> indices, string value) => DependentDerivedUnsafeAccessors<byte?>.Data(entity) = value);
+                CompiledModelTestBase.DependentDerived<byte?> (CompiledModelTestBase.DependentDerived<byte?> instance, string value) =>
+                {
+                    DependentDerivedUnsafeAccessors<byte?>.Data(instance) = value;
+                    return instance;
+                });
             data.SetAccessors(
                 string (IInternalEntry entry) => DependentDerivedUnsafeAccessors<byte?>.Data(((CompiledModelTestBase.DependentDerived<byte?>)(entry.Entity))),
                 string (IInternalEntry entry) => DependentDerivedUnsafeAccessors<byte?>.Data(((CompiledModelTestBase.DependentDerived<byte?>)(entry.Entity))),

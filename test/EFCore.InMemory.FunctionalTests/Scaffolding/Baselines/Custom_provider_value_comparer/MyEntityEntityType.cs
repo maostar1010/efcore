@@ -41,9 +41,17 @@ namespace TestNamespace
                 int (Dictionary<string, object> instance) => ((((IDictionary<string, object>)instance).ContainsKey("Id") ? instance["Id"] : null) == null ? 0 : ((int)((((IDictionary<string, object>)instance).ContainsKey("Id") ? instance["Id"] : null)))),
                 bool (Dictionary<string, object> instance) => (((IDictionary<string, object>)instance).ContainsKey("Id") ? instance["Id"] : null) == null);
             id.SetSetter(
-                (Dictionary<string, object> entity, IReadOnlyList<int> indices, int value) => entity["Id"] = ((object)(value)));
+                Dictionary<string, object> (Dictionary<string, object> instance, int value) =>
+                {
+                    instance["Id"] = ((object)(value));
+                    return instance;
+                });
             id.SetMaterializationSetter(
-                (Dictionary<string, object> entity, IReadOnlyList<int> indices, int value) => entity["Id"] = ((object)(value)));
+                Dictionary<string, object> (Dictionary<string, object> instance, int value) =>
+                {
+                    instance["Id"] = ((object)(value));
+                    return instance;
+                });
             id.SetAccessors(
                 int (IInternalEntry entry) =>
                 {

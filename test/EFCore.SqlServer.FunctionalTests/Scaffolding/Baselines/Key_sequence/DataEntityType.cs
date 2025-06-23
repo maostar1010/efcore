@@ -76,9 +76,17 @@ namespace TestNamespace
                 byte[] (CompiledModelTestBase.Data instance) => DataUnsafeAccessors.Blob(instance),
                 bool (CompiledModelTestBase.Data instance) => DataUnsafeAccessors.Blob(instance) == null);
             blob.SetSetter(
-                (CompiledModelTestBase.Data entity, IReadOnlyList<int> indices, byte[] value) => DataUnsafeAccessors.Blob(entity) = value);
+                CompiledModelTestBase.Data (CompiledModelTestBase.Data instance, byte[] value) =>
+                {
+                    DataUnsafeAccessors.Blob(instance) = value;
+                    return instance;
+                });
             blob.SetMaterializationSetter(
-                (CompiledModelTestBase.Data entity, IReadOnlyList<int> indices, byte[] value) => DataUnsafeAccessors.Blob(entity) = value);
+                CompiledModelTestBase.Data (CompiledModelTestBase.Data instance, byte[] value) =>
+                {
+                    DataUnsafeAccessors.Blob(instance) = value;
+                    return instance;
+                });
             blob.SetAccessors(
                 byte[] (IInternalEntry entry) => DataUnsafeAccessors.Blob(((CompiledModelTestBase.Data)(entry.Entity))),
                 byte[] (IInternalEntry entry) => DataUnsafeAccessors.Blob(((CompiledModelTestBase.Data)(entry.Entity))),

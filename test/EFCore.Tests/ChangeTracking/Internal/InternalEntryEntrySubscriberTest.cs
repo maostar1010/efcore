@@ -591,6 +591,7 @@ public class InternalEntryEntrySubscriberTest
         }
 
         public void DetectChanges(InternalComplexEntry entry) => throw new NotImplementedException();
+        public bool DetectComplexCollectionChanges(InternalEntryBase entry, IComplexProperty complexProperty) => throw new NotImplementedException();
     }
 
     private class TestNavigationListener : INavigationFixer

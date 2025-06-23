@@ -42,6 +42,12 @@ public class ClrIndexedCollectionAccessorFactory
             return null;
         }
 
+        // Shadow properties don't have CLR members, so we can't create CLR indexed collection accessors for them
+        if (collection.IsShadowProperty())
+        {
+            return null;
+        }
+
         // ReSharper disable once SuspiciousTypeConversion.Global
         if (collection is IClrIndexedCollectionAccessor accessor)
         {
@@ -77,14 +83,16 @@ public class ClrIndexedCollectionAccessorFactory
             collection,
             out var get,
             out var set,
-            out var setForMaterialization);
+            out var setForMaterialization,
+            out var createCollectionExpression);
 
-        return new ClrIndexedCollectionAccessor<TStructural, TElement>(
+        return new ClrIndexedCollectionAccessor<TStructural, TCollection, TElement>(
             collection.Name,
             collection.IsShadowProperty(),
-            get?.Compile(),
-            set?.Compile(),
-            setForMaterialization?.Compile());
+            get.Compile(),
+            set.Compile(),
+            setForMaterialization?.Compile(),
+            createCollectionExpression.Compile());
     }
 
     /// <summary>
@@ -98,9 +106,10 @@ public class ClrIndexedCollectionAccessorFactory
         out Type entityType,
         out Type propertyType,
         out Type elementType,
-        out Expression? get,
+        out Expression get,
         out Expression? set,
-        out Expression? setForMaterialization)
+        out Expression? setForMaterialization,
+        out Expression createCollection)
     {
         var memberInfo = GetMostDerivedMemberInfo(collection);
         entityType = memberInfo?.DeclaringType ?? collection.DeclaringType.ClrType;
@@ -114,11 +123,12 @@ public class ClrIndexedCollectionAccessorFactory
 
         try
         {
-            var parameters = new object?[] { collection, null, null, null };
+            var parameters = new object?[] { collection, null, null, null, null };
             boundMethod.Invoke(this, parameters);
             get = (Expression)parameters[1]!;
             set = (Expression)parameters[2]!;
-            setForMaterialization = (Expression?)parameters[3];
+            setForMaterialization = parameters[3] as Expression;
+            createCollection = (Expression)parameters[4]!;
         }
         catch (TargetInvocationException e) when (e.InnerException != null)
         {
@@ -133,18 +143,58 @@ public class ClrIndexedCollectionAccessorFactory
     [UsedImplicitly]
     private static void CreateExpressions<TStructural, TCollection, TElement>(
         IPropertyBase collection,
-        out Expression<Func<TStructural, int, TElement>>? get,
-        out Expression<Action<TStructural, int, TElement>>? set,
-        out Expression<Action<TStructural, int, TElement>>? setForMaterialization)
+        out Expression<Func<TStructural, int, TElement>> get,
+        out Expression<Action<TStructural, int, TElement?>> set,
+        out Expression<Action<TStructural, int, TElement?>>? setForMaterialization,
+        out Expression<Func<int, TCollection>> createCollection)
         where TCollection : class, IList<TElement>
     {
-        get = null;
-        set = null;
         setForMaterialization = null;
+
+        var capacityParameter = Expression.Parameter(typeof(int), "capacity");
+        var collectionType = typeof(TCollection);
+        
+        Expression createCollectionBody;
+        if (collectionType.IsArray)
+        {
+            createCollectionBody = Expression.NewArrayBounds(typeof(TElement), capacityParameter);
+        }
+        else
+        {
+            // If the collection type is an interface (like IList<TElement> or IList), use List<TElement> instead
+            var concreteType = collectionType;
+            if (collectionType.IsInterface)
+            {
+                if (collectionType == typeof(System.Collections.IList) || 
+                    (collectionType.IsGenericType && collectionType.GetGenericTypeDefinition() == typeof(IList<>)))
+                {
+                    concreteType = typeof(List<TElement>);
+                }
+            }
+            
+            var capacityConstructor = concreteType.GetConstructor([typeof(int)]);
+            var defaultConstructor = concreteType.GetConstructor(Type.EmptyTypes);
+
+            if (capacityConstructor != null)
+            {
+                createCollectionBody = Expression.New(capacityConstructor, capacityParameter);
+            }
+            else if (defaultConstructor != null)
+            {
+                createCollectionBody = Expression.New(defaultConstructor);
+            }
+            else
+            {
+                throw new InvalidOperationException(
+                    $"The type '{collectionType.FullName}' does not have a constructor that takes an integer parameter or a parameterless constructor.");
+            }
+        }
+        
+        createCollection = Expression.Lambda<Func<int, TCollection>>(createCollectionBody, capacityParameter);
 
         var objectParameter = Expression.Parameter(typeof(TStructural), "structuralObject");
         var indexParameter = Expression.Parameter(typeof(int), "index");
-        var valueParameter = Expression.Parameter(typeof(TElement), "value");
+        var valueParameter = Expression.Parameter(typeof(TElement?), "value");
 
         if (!collection.IsShadowProperty())
         {
@@ -161,7 +211,7 @@ public class ClrIndexedCollectionAccessorFactory
             var index = Expression.MakeIndex(memberAccessForRead, indexer, [indexParameter]);
             get = Expression.Lambda<Func<TStructural, int, TElement>>(index, objectParameter, indexParameter);
 
-            set = Expression.Lambda<Action<TStructural, int, TElement>>(
+            set = Expression.Lambda<Action<TStructural, int, TElement?>>(
                 Expression.Assign(index, valueParameter),
                 objectParameter, indexParameter, valueParameter);
 
@@ -174,10 +224,26 @@ public class ClrIndexedCollectionAccessorFactory
                 }
                 index = Expression.MakeIndex(memberAccessForMaterialization, indexer, [indexParameter]);
 
-                setForMaterialization = Expression.Lambda<Action<TStructural, int, TElement>>(
+                setForMaterialization = Expression.Lambda<Action<TStructural, int, TElement?>>(
                     Expression.Assign(index, valueParameter),
                     objectParameter, indexParameter, valueParameter);
             }
+        }
+        else
+        {
+            // For shadow properties, we can't create CLR accessors, so we provide throw expressions
+            // These should not be used since shadow properties should be handled differently
+            var throwExpression = Expression.Throw(
+                Expression.New(typeof(InvalidOperationException).GetConstructor([typeof(string)])!,
+                    Expression.Constant("CLR indexed collection accessors are not supported for shadow properties.")));
+            
+            get = Expression.Lambda<Func<TStructural, int, TElement>>(
+                Expression.Block(typeof(TElement), throwExpression),
+                objectParameter, indexParameter);
+            
+            set = Expression.Lambda<Action<TStructural, int, TElement?>>(
+                throwExpression,
+                objectParameter, indexParameter, valueParameter);
         }
     }
 

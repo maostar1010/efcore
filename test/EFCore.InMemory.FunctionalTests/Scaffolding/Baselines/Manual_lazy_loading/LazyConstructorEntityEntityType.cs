@@ -42,9 +42,17 @@ namespace TestNamespace
                 int (CompiledModelInMemoryTest.LazyConstructorEntity instance) => LazyConstructorEntityUnsafeAccessors.Id(instance),
                 bool (CompiledModelInMemoryTest.LazyConstructorEntity instance) => LazyConstructorEntityUnsafeAccessors.Id(instance) == 0);
             id.SetSetter(
-                (CompiledModelInMemoryTest.LazyConstructorEntity entity, IReadOnlyList<int> indices, int value) => LazyConstructorEntityUnsafeAccessors.Id(entity) = value);
+                CompiledModelInMemoryTest.LazyConstructorEntity (CompiledModelInMemoryTest.LazyConstructorEntity instance, int value) =>
+                {
+                    LazyConstructorEntityUnsafeAccessors.Id(instance) = value;
+                    return instance;
+                });
             id.SetMaterializationSetter(
-                (CompiledModelInMemoryTest.LazyConstructorEntity entity, IReadOnlyList<int> indices, int value) => LazyConstructorEntityUnsafeAccessors.Id(entity) = value);
+                CompiledModelInMemoryTest.LazyConstructorEntity (CompiledModelInMemoryTest.LazyConstructorEntity instance, int value) =>
+                {
+                    LazyConstructorEntityUnsafeAccessors.Id(instance) = value;
+                    return instance;
+                });
             id.SetAccessors(
                 int (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(0) ? entry.ReadStoreGeneratedValue<int>(0) : (entry.FlaggedAsTemporary(0) && LazyConstructorEntityUnsafeAccessors.Id(((CompiledModelInMemoryTest.LazyConstructorEntity)(entry.Entity))) == 0 ? entry.ReadTemporaryValue<int>(0) : LazyConstructorEntityUnsafeAccessors.Id(((CompiledModelInMemoryTest.LazyConstructorEntity)(entry.Entity))))),
                 int (IInternalEntry entry) => LazyConstructorEntityUnsafeAccessors.Id(((CompiledModelInMemoryTest.LazyConstructorEntity)(entry.Entity))),

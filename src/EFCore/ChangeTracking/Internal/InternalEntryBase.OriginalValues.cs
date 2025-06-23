@@ -1,15 +1,16 @@
 // Licensed to the .NET Foundation under one or more agreements.
 // The .NET Foundation licenses this file to you under the MIT license.
 
+using System.Collections;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 
 public partial class InternalEntryBase
 {
-    private readonly struct OriginalValues(InternalEntryBase entry)
+    private struct OriginalValues(InternalEntryBase entry)
     {
-        private readonly ISnapshot _values = entry.StructuralType.OriginalValuesFactory(entry);
+        private ISnapshot _values = entry.StructuralType.OriginalValuesFactory(entry);
 
         public object? GetValue(IInternalEntry entry, IPropertyBase property)
             => property.GetOriginalValueIndex() is var index && index == -1
@@ -60,14 +61,8 @@ public partial class InternalEntryBase
                 return;
             }
 
-            foreach (var property in entry.StructuralType.GetFlattenedProperties())
-            {
-                var index = property.GetOriginalValueIndex();
-                if (index >= 0)
-                {
-                    entry[property] = SnapshotValue(property, _values[index]);
-                }
-            }
+            // This isn't efficient, but avoids duplicating the logic
+            new CurrentPropertyValues((InternalEntryBase)entry).SetValues(new OriginalPropertyValues((InternalEntryBase)entry));
         }
 
         public void AcceptChanges(IInternalEntry entry)
@@ -77,20 +72,23 @@ public partial class InternalEntryBase
                 return;
             }
 
-            foreach (var property in entry.StructuralType.GetFlattenedProperties())
-            {
-                var index = property.GetOriginalValueIndex();
-                if (index >= 0)
-                {
-                    _values[index] = SnapshotValue(property, entry[property]);
-                }
-            }
+            _values = entry.StructuralType.OriginalValuesFactory(entry);
         }
 
         private static object? SnapshotValue(IPropertyBase propertyBase, object? value)
-         => propertyBase is IProperty property
-           ? property.GetValueComparer().Snapshot(value)
-           : value;
+        {
+            if (propertyBase is IProperty property)
+            {
+                return property.GetValueComparer().Snapshot(value);
+            }
+
+            if (propertyBase is IComplexProperty complexProperty && complexProperty.IsCollection && value is IList list)
+            {
+                return SnapshotFactoryFactory.SnapshotComplexCollection(list, (IRuntimeComplexProperty)complexProperty);
+            }
+
+            return value;
+        }
 
         public bool IsEmpty
             => _values == null;

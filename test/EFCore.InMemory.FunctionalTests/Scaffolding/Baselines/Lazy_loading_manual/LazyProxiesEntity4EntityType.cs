@@ -43,9 +43,17 @@ namespace TestNamespace
                 int (CompiledModelInMemoryTest.LazyProxiesEntity4 instance) => LazyProxiesEntity4UnsafeAccessors.Id(instance),
                 bool (CompiledModelInMemoryTest.LazyProxiesEntity4 instance) => LazyProxiesEntity4UnsafeAccessors.Id(instance) == 0);
             id.SetSetter(
-                (CompiledModelInMemoryTest.LazyProxiesEntity4 entity, IReadOnlyList<int> indices, int value) => LazyProxiesEntity4UnsafeAccessors.Id(entity) = value);
+                CompiledModelInMemoryTest.LazyProxiesEntity4 (CompiledModelInMemoryTest.LazyProxiesEntity4 instance, int value) =>
+                {
+                    LazyProxiesEntity4UnsafeAccessors.Id(instance) = value;
+                    return instance;
+                });
             id.SetMaterializationSetter(
-                (CompiledModelInMemoryTest.LazyProxiesEntity4 entity, IReadOnlyList<int> indices, int value) => LazyProxiesEntity4UnsafeAccessors.Id(entity) = value);
+                CompiledModelInMemoryTest.LazyProxiesEntity4 (CompiledModelInMemoryTest.LazyProxiesEntity4 instance, int value) =>
+                {
+                    LazyProxiesEntity4UnsafeAccessors.Id(instance) = value;
+                    return instance;
+                });
             id.SetAccessors(
                 int (IInternalEntry entry) => LazyProxiesEntity4UnsafeAccessors.Id(((CompiledModelInMemoryTest.LazyProxiesEntity4)(entry.Entity))),
                 int (IInternalEntry entry) => LazyProxiesEntity4UnsafeAccessors.Id(((CompiledModelInMemoryTest.LazyProxiesEntity4)(entry.Entity))),
@@ -84,9 +92,17 @@ namespace TestNamespace
                 string (CompiledModelInMemoryTest.LazyProxiesEntity4 instance) => LazyProxiesEntity4UnsafeAccessors.Content(instance),
                 bool (CompiledModelInMemoryTest.LazyProxiesEntity4 instance) => LazyProxiesEntity4UnsafeAccessors.Content(instance) == null);
             content.SetSetter(
-                (CompiledModelInMemoryTest.LazyProxiesEntity4 entity, IReadOnlyList<int> indices, string value) => LazyProxiesEntity4UnsafeAccessors.Content(entity) = value);
+                CompiledModelInMemoryTest.LazyProxiesEntity4 (CompiledModelInMemoryTest.LazyProxiesEntity4 instance, string value) =>
+                {
+                    LazyProxiesEntity4UnsafeAccessors.Content(instance) = value;
+                    return instance;
+                });
             content.SetMaterializationSetter(
-                (CompiledModelInMemoryTest.LazyProxiesEntity4 entity, IReadOnlyList<int> indices, string value) => LazyProxiesEntity4UnsafeAccessors.Content(entity) = value);
+                CompiledModelInMemoryTest.LazyProxiesEntity4 (CompiledModelInMemoryTest.LazyProxiesEntity4 instance, string value) =>
+                {
+                    LazyProxiesEntity4UnsafeAccessors.Content(instance) = value;
+                    return instance;
+                });
             content.SetAccessors(
                 string (IInternalEntry entry) => LazyProxiesEntity4UnsafeAccessors.Content(((CompiledModelInMemoryTest.LazyProxiesEntity4)(entry.Entity))),
                 string (IInternalEntry entry) => LazyProxiesEntity4UnsafeAccessors.Content(((CompiledModelInMemoryTest.LazyProxiesEntity4)(entry.Entity))),
@@ -156,9 +172,17 @@ namespace TestNamespace
                 string (CompiledModelInMemoryTest.LazyProxiesEntity4 instance) => LazyProxiesEntity4UnsafeAccessors.Title(instance),
                 bool (CompiledModelInMemoryTest.LazyProxiesEntity4 instance) => LazyProxiesEntity4UnsafeAccessors.Title(instance) == null);
             title.SetSetter(
-                (CompiledModelInMemoryTest.LazyProxiesEntity4 entity, IReadOnlyList<int> indices, string value) => LazyProxiesEntity4UnsafeAccessors.Title(entity) = value);
+                CompiledModelInMemoryTest.LazyProxiesEntity4 (CompiledModelInMemoryTest.LazyProxiesEntity4 instance, string value) =>
+                {
+                    LazyProxiesEntity4UnsafeAccessors.Title(instance) = value;
+                    return instance;
+                });
             title.SetMaterializationSetter(
-                (CompiledModelInMemoryTest.LazyProxiesEntity4 entity, IReadOnlyList<int> indices, string value) => LazyProxiesEntity4UnsafeAccessors.Title(entity) = value);
+                CompiledModelInMemoryTest.LazyProxiesEntity4 (CompiledModelInMemoryTest.LazyProxiesEntity4 instance, string value) =>
+                {
+                    LazyProxiesEntity4UnsafeAccessors.Title(instance) = value;
+                    return instance;
+                });
             title.SetAccessors(
                 string (IInternalEntry entry) => LazyProxiesEntity4UnsafeAccessors.Title(((CompiledModelInMemoryTest.LazyProxiesEntity4)(entry.Entity))),
                 string (IInternalEntry entry) => LazyProxiesEntity4UnsafeAccessors.Title(((CompiledModelInMemoryTest.LazyProxiesEntity4)(entry.Entity))),
@@ -224,9 +248,17 @@ namespace TestNamespace
                 CompiledModelInMemoryTest.LazyProxiesEntity3 (CompiledModelInMemoryTest.LazyProxiesEntity4 instance) => LazyProxiesEntity4UnsafeAccessors._referenceNavigation(instance),
                 bool (CompiledModelInMemoryTest.LazyProxiesEntity4 instance) => LazyProxiesEntity4UnsafeAccessors._referenceNavigation(instance) == null);
             referenceNavigation.SetSetter(
-                (CompiledModelInMemoryTest.LazyProxiesEntity4 entity, IReadOnlyList<int> indices, CompiledModelInMemoryTest.LazyProxiesEntity3 value) => LazyProxiesEntity4UnsafeAccessors._referenceNavigation(entity) = value);
+                CompiledModelInMemoryTest.LazyProxiesEntity4 (CompiledModelInMemoryTest.LazyProxiesEntity4 instance, CompiledModelInMemoryTest.LazyProxiesEntity3 value) =>
+                {
+                    LazyProxiesEntity4UnsafeAccessors._referenceNavigation(instance) = value;
+                    return instance;
+                });
             referenceNavigation.SetMaterializationSetter(
-                (CompiledModelInMemoryTest.LazyProxiesEntity4 entity, IReadOnlyList<int> indices, CompiledModelInMemoryTest.LazyProxiesEntity3 value) => LazyProxiesEntity4UnsafeAccessors._referenceNavigation(entity) = value);
+                CompiledModelInMemoryTest.LazyProxiesEntity4 (CompiledModelInMemoryTest.LazyProxiesEntity4 instance, CompiledModelInMemoryTest.LazyProxiesEntity3 value) =>
+                {
+                    LazyProxiesEntity4UnsafeAccessors._referenceNavigation(instance) = value;
+                    return instance;
+                });
             referenceNavigation.SetAccessors(
                 CompiledModelInMemoryTest.LazyProxiesEntity3 (IInternalEntry entry) => LazyProxiesEntity4UnsafeAccessors._referenceNavigation(((CompiledModelInMemoryTest.LazyProxiesEntity4)(entry.Entity))),
                 CompiledModelInMemoryTest.LazyProxiesEntity3 (IInternalEntry entry) => LazyProxiesEntity4UnsafeAccessors._referenceNavigation(((CompiledModelInMemoryTest.LazyProxiesEntity4)(entry.Entity))),
@@ -250,9 +282,17 @@ namespace TestNamespace
                 ICollection<CompiledModelInMemoryTest.LazyProxiesEntity4> (CompiledModelInMemoryTest.LazyProxiesEntity3 instance) => LazyProxiesEntity3UnsafeAccessors._collectionNavigation(instance),
                 bool (CompiledModelInMemoryTest.LazyProxiesEntity3 instance) => LazyProxiesEntity3UnsafeAccessors._collectionNavigation(instance) == null);
             collectionNavigation.SetSetter(
-                (CompiledModelInMemoryTest.LazyProxiesEntity3 entity, IReadOnlyList<int> indices, ICollection<CompiledModelInMemoryTest.LazyProxiesEntity4> value) => LazyProxiesEntity3UnsafeAccessors._collectionNavigation(entity) = value);
+                CompiledModelInMemoryTest.LazyProxiesEntity3 (CompiledModelInMemoryTest.LazyProxiesEntity3 instance, ICollection<CompiledModelInMemoryTest.LazyProxiesEntity4> value) =>
+                {
+                    LazyProxiesEntity3UnsafeAccessors._collectionNavigation(instance) = value;
+                    return instance;
+                });
             collectionNavigation.SetMaterializationSetter(
-                (CompiledModelInMemoryTest.LazyProxiesEntity3 entity, IReadOnlyList<int> indices, ICollection<CompiledModelInMemoryTest.LazyProxiesEntity4> value) => LazyProxiesEntity3UnsafeAccessors._collectionNavigation(entity) = value);
+                CompiledModelInMemoryTest.LazyProxiesEntity3 (CompiledModelInMemoryTest.LazyProxiesEntity3 instance, ICollection<CompiledModelInMemoryTest.LazyProxiesEntity4> value) =>
+                {
+                    LazyProxiesEntity3UnsafeAccessors._collectionNavigation(instance) = value;
+                    return instance;
+                });
             collectionNavigation.SetAccessors(
                 ICollection<CompiledModelInMemoryTest.LazyProxiesEntity4> (IInternalEntry entry) => LazyProxiesEntity3UnsafeAccessors._collectionNavigation(((CompiledModelInMemoryTest.LazyProxiesEntity3)(entry.Entity))),
                 ICollection<CompiledModelInMemoryTest.LazyProxiesEntity4> (IInternalEntry entry) => LazyProxiesEntity3UnsafeAccessors._collectionNavigation(((CompiledModelInMemoryTest.LazyProxiesEntity3)(entry.Entity))),

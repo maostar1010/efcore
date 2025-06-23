@@ -41,9 +41,17 @@ namespace TestNamespace
                 long (CompiledModelInMemoryTest.SelfReferentialEntity<long> instance) => SelfReferentialEntityUnsafeAccessors<long>.Id(instance),
                 bool (CompiledModelInMemoryTest.SelfReferentialEntity<long> instance) => SelfReferentialEntityUnsafeAccessors<long>.Id(instance) == 0L);
             id.SetSetter(
-                (CompiledModelInMemoryTest.SelfReferentialEntity<long> entity, IReadOnlyList<int> indices, long value) => SelfReferentialEntityUnsafeAccessors<long>.Id(entity) = value);
+                CompiledModelInMemoryTest.SelfReferentialEntity<long> (CompiledModelInMemoryTest.SelfReferentialEntity<long> instance, long value) =>
+                {
+                    SelfReferentialEntityUnsafeAccessors<long>.Id(instance) = value;
+                    return instance;
+                });
             id.SetMaterializationSetter(
-                (CompiledModelInMemoryTest.SelfReferentialEntity<long> entity, IReadOnlyList<int> indices, long value) => SelfReferentialEntityUnsafeAccessors<long>.Id(entity) = value);
+                CompiledModelInMemoryTest.SelfReferentialEntity<long> (CompiledModelInMemoryTest.SelfReferentialEntity<long> instance, long value) =>
+                {
+                    SelfReferentialEntityUnsafeAccessors<long>.Id(instance) = value;
+                    return instance;
+                });
             id.SetAccessors(
                 long (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(0) ? entry.ReadStoreGeneratedValue<long>(0) : (entry.FlaggedAsTemporary(0) && SelfReferentialEntityUnsafeAccessors<long>.Id(((CompiledModelInMemoryTest.SelfReferentialEntity<long>)(entry.Entity))) == 0L ? entry.ReadTemporaryValue<long>(0) : SelfReferentialEntityUnsafeAccessors<long>.Id(((CompiledModelInMemoryTest.SelfReferentialEntity<long>)(entry.Entity))))),
                 long (IInternalEntry entry) => SelfReferentialEntityUnsafeAccessors<long>.Id(((CompiledModelInMemoryTest.SelfReferentialEntity<long>)(entry.Entity))),
@@ -83,9 +91,17 @@ namespace TestNamespace
                 CompiledModelInMemoryTest.SelfReferentialProperty (CompiledModelInMemoryTest.SelfReferentialEntity<long> instance) => SelfReferentialEntityUnsafeAccessors<long>.Collection(instance),
                 bool (CompiledModelInMemoryTest.SelfReferentialEntity<long> instance) => SelfReferentialEntityUnsafeAccessors<long>.Collection(instance) == null);
             collection.SetSetter(
-                (CompiledModelInMemoryTest.SelfReferentialEntity<long> entity, IReadOnlyList<int> indices, CompiledModelInMemoryTest.SelfReferentialProperty value) => SelfReferentialEntityUnsafeAccessors<long>.Collection(entity) = value);
+                CompiledModelInMemoryTest.SelfReferentialEntity<long> (CompiledModelInMemoryTest.SelfReferentialEntity<long> instance, CompiledModelInMemoryTest.SelfReferentialProperty value) =>
+                {
+                    SelfReferentialEntityUnsafeAccessors<long>.Collection(instance) = value;
+                    return instance;
+                });
             collection.SetMaterializationSetter(
-                (CompiledModelInMemoryTest.SelfReferentialEntity<long> entity, IReadOnlyList<int> indices, CompiledModelInMemoryTest.SelfReferentialProperty value) => SelfReferentialEntityUnsafeAccessors<long>.Collection(entity) = value);
+                CompiledModelInMemoryTest.SelfReferentialEntity<long> (CompiledModelInMemoryTest.SelfReferentialEntity<long> instance, CompiledModelInMemoryTest.SelfReferentialProperty value) =>
+                {
+                    SelfReferentialEntityUnsafeAccessors<long>.Collection(instance) = value;
+                    return instance;
+                });
             collection.SetAccessors(
                 CompiledModelInMemoryTest.SelfReferentialProperty (IInternalEntry entry) => SelfReferentialEntityUnsafeAccessors<long>.Collection(((CompiledModelInMemoryTest.SelfReferentialEntity<long>)(entry.Entity))),
                 CompiledModelInMemoryTest.SelfReferentialProperty (IInternalEntry entry) => SelfReferentialEntityUnsafeAccessors<long>.Collection(((CompiledModelInMemoryTest.SelfReferentialEntity<long>)(entry.Entity))),

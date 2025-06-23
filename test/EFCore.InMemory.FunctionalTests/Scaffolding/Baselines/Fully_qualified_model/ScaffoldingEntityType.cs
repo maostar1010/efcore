@@ -40,9 +40,17 @@ namespace Scaffolding
                 long (CompiledModelInMemoryTest.Scaffolding instance) => ScaffoldingUnsafeAccessors.Id(instance),
                 bool (CompiledModelInMemoryTest.Scaffolding instance) => ScaffoldingUnsafeAccessors.Id(instance) == 0L);
             id.SetSetter(
-                (CompiledModelInMemoryTest.Scaffolding entity, IReadOnlyList<int> indices, long value) => ScaffoldingUnsafeAccessors.Id(entity) = value);
+                CompiledModelInMemoryTest.Scaffolding (CompiledModelInMemoryTest.Scaffolding instance, long value) =>
+                {
+                    ScaffoldingUnsafeAccessors.Id(instance) = value;
+                    return instance;
+                });
             id.SetMaterializationSetter(
-                (CompiledModelInMemoryTest.Scaffolding entity, IReadOnlyList<int> indices, long value) => ScaffoldingUnsafeAccessors.Id(entity) = value);
+                CompiledModelInMemoryTest.Scaffolding (CompiledModelInMemoryTest.Scaffolding instance, long value) =>
+                {
+                    ScaffoldingUnsafeAccessors.Id(instance) = value;
+                    return instance;
+                });
             id.SetAccessors(
                 long (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(0) ? entry.ReadStoreGeneratedValue<long>(0) : (entry.FlaggedAsTemporary(0) && ScaffoldingUnsafeAccessors.Id(((CompiledModelInMemoryTest.Scaffolding)(entry.Entity))) == 0L ? entry.ReadTemporaryValue<long>(0) : ScaffoldingUnsafeAccessors.Id(((CompiledModelInMemoryTest.Scaffolding)(entry.Entity))))),
                 long (IInternalEntry entry) => ScaffoldingUnsafeAccessors.Id(((CompiledModelInMemoryTest.Scaffolding)(entry.Entity))),

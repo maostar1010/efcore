@@ -39,9 +39,17 @@ namespace TestNamespace
                 int (CompiledModelTestBase.DependentDerived<int> instance) => DependentBaseUnsafeAccessors<int>.Id(instance),
                 bool (CompiledModelTestBase.DependentDerived<int> instance) => DependentBaseUnsafeAccessors<int>.Id(instance) == 0);
             id.SetSetter(
-                (CompiledModelTestBase.DependentDerived<int> entity, IReadOnlyList<int> indices, int value) => DependentBaseUnsafeAccessors<int>.Id(entity) = value);
+                CompiledModelTestBase.DependentDerived<int> (CompiledModelTestBase.DependentDerived<int> instance, int value) =>
+                {
+                    DependentBaseUnsafeAccessors<int>.Id(instance) = value;
+                    return instance;
+                });
             id.SetMaterializationSetter(
-                (CompiledModelTestBase.DependentDerived<int> entity, IReadOnlyList<int> indices, int value) => DependentBaseUnsafeAccessors<int>.Id(entity) = value);
+                CompiledModelTestBase.DependentDerived<int> (CompiledModelTestBase.DependentDerived<int> instance, int value) =>
+                {
+                    DependentBaseUnsafeAccessors<int>.Id(instance) = value;
+                    return instance;
+                });
             id.SetAccessors(
                 int (IInternalEntry entry) => DependentBaseUnsafeAccessors<int>.Id(((CompiledModelTestBase.DependentDerived<int>)(entry.Entity))),
                 int (IInternalEntry entry) => DependentBaseUnsafeAccessors<int>.Id(((CompiledModelTestBase.DependentDerived<int>)(entry.Entity))),
@@ -79,9 +87,17 @@ namespace TestNamespace
                 string (CompiledModelTestBase.DependentDerived<int> instance) => DependentDerivedUnsafeAccessors<int>.Data(instance),
                 bool (CompiledModelTestBase.DependentDerived<int> instance) => DependentDerivedUnsafeAccessors<int>.Data(instance) == null);
             data.SetSetter(
-                (CompiledModelTestBase.DependentDerived<int> entity, IReadOnlyList<int> indices, string value) => DependentDerivedUnsafeAccessors<int>.Data(entity) = value);
+                CompiledModelTestBase.DependentDerived<int> (CompiledModelTestBase.DependentDerived<int> instance, string value) =>
+                {
+                    DependentDerivedUnsafeAccessors<int>.Data(instance) = value;
+                    return instance;
+                });
             data.SetMaterializationSetter(
-                (CompiledModelTestBase.DependentDerived<int> entity, IReadOnlyList<int> indices, string value) => DependentDerivedUnsafeAccessors<int>.Data(entity) = value);
+                CompiledModelTestBase.DependentDerived<int> (CompiledModelTestBase.DependentDerived<int> instance, string value) =>
+                {
+                    DependentDerivedUnsafeAccessors<int>.Data(instance) = value;
+                    return instance;
+                });
             data.SetAccessors(
                 string (IInternalEntry entry) => DependentDerivedUnsafeAccessors<int>.Data(((CompiledModelTestBase.DependentDerived<int>)(entry.Entity))),
                 string (IInternalEntry entry) => DependentDerivedUnsafeAccessors<int>.Data(((CompiledModelTestBase.DependentDerived<int>)(entry.Entity))),

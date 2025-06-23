@@ -40,9 +40,17 @@ namespace Scaffolding
                 Guid (CompiledModelInMemoryTest.Index instance) => IndexUnsafeAccessors.Id(instance),
                 bool (CompiledModelInMemoryTest.Index instance) => IndexUnsafeAccessors.Id(instance) == new Guid("00000000-0000-0000-0000-000000000000"));
             id.SetSetter(
-                (CompiledModelInMemoryTest.Index entity, IReadOnlyList<int> indices, Guid value) => IndexUnsafeAccessors.Id(entity) = value);
+                CompiledModelInMemoryTest.Index (CompiledModelInMemoryTest.Index instance, Guid value) =>
+                {
+                    IndexUnsafeAccessors.Id(instance) = value;
+                    return instance;
+                });
             id.SetMaterializationSetter(
-                (CompiledModelInMemoryTest.Index entity, IReadOnlyList<int> indices, Guid value) => IndexUnsafeAccessors.Id(entity) = value);
+                CompiledModelInMemoryTest.Index (CompiledModelInMemoryTest.Index instance, Guid value) =>
+                {
+                    IndexUnsafeAccessors.Id(instance) = value;
+                    return instance;
+                });
             id.SetAccessors(
                 Guid (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(0) ? entry.ReadStoreGeneratedValue<Guid>(0) : (entry.FlaggedAsTemporary(0) && IndexUnsafeAccessors.Id(((CompiledModelInMemoryTest.Index)(entry.Entity))) == new Guid("00000000-0000-0000-0000-000000000000") ? entry.ReadTemporaryValue<Guid>(0) : IndexUnsafeAccessors.Id(((CompiledModelInMemoryTest.Index)(entry.Entity))))),
                 Guid (IInternalEntry entry) => IndexUnsafeAccessors.Id(((CompiledModelInMemoryTest.Index)(entry.Entity))),

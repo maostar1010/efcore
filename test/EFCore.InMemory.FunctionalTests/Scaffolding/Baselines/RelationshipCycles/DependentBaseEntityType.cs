@@ -42,9 +42,17 @@ namespace TestNamespace
                 long? (CompiledModelTestBase.DependentBase<long?> instance) => DependentBaseUnsafeAccessors<long?>.Id(instance),
                 bool (CompiledModelTestBase.DependentBase<long?> instance) => !(DependentBaseUnsafeAccessors<long?>.Id(instance).HasValue));
             id.SetSetter(
-                (CompiledModelTestBase.DependentBase<long?> entity, IReadOnlyList<int> indices, long? value) => DependentBaseUnsafeAccessors<long?>.Id(entity) = value);
+                CompiledModelTestBase.DependentBase<long?> (CompiledModelTestBase.DependentBase<long?> instance, long? value) =>
+                {
+                    DependentBaseUnsafeAccessors<long?>.Id(instance) = value;
+                    return instance;
+                });
             id.SetMaterializationSetter(
-                (CompiledModelTestBase.DependentBase<long?> entity, IReadOnlyList<int> indices, long? value) => DependentBaseUnsafeAccessors<long?>.Id(entity) = value);
+                CompiledModelTestBase.DependentBase<long?> (CompiledModelTestBase.DependentBase<long?> instance, long? value) =>
+                {
+                    DependentBaseUnsafeAccessors<long?>.Id(instance) = value;
+                    return instance;
+                });
             id.SetAccessors(
                 long? (IInternalEntry entry) => (entry.FlaggedAsStoreGenerated(0) ? entry.ReadStoreGeneratedValue<long?>(0) : (entry.FlaggedAsTemporary(0) && !(DependentBaseUnsafeAccessors<long?>.Id(((CompiledModelTestBase.DependentBase<long?>)(entry.Entity))).HasValue) ? entry.ReadTemporaryValue<long?>(0) : DependentBaseUnsafeAccessors<long?>.Id(((CompiledModelTestBase.DependentBase<long?>)(entry.Entity))))),
                 long? (IInternalEntry entry) => DependentBaseUnsafeAccessors<long?>.Id(((CompiledModelTestBase.DependentBase<long?>)(entry.Entity))),
@@ -138,9 +146,17 @@ namespace TestNamespace
                 CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<long?>> (CompiledModelTestBase.DependentBase<long?> instance) => DependentBaseUnsafeAccessors<long?>.Principal(instance),
                 bool (CompiledModelTestBase.DependentBase<long?> instance) => DependentBaseUnsafeAccessors<long?>.Principal(instance) == null);
             principal.SetSetter(
-                (CompiledModelTestBase.DependentBase<long?> entity, IReadOnlyList<int> indices, CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<long?>> value) => DependentBaseUnsafeAccessors<long?>.Principal(entity) = value);
+                CompiledModelTestBase.DependentBase<long?> (CompiledModelTestBase.DependentBase<long?> instance, CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<long?>> value) =>
+                {
+                    DependentBaseUnsafeAccessors<long?>.Principal(instance) = value;
+                    return instance;
+                });
             principal.SetMaterializationSetter(
-                (CompiledModelTestBase.DependentBase<long?> entity, IReadOnlyList<int> indices, CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<long?>> value) => DependentBaseUnsafeAccessors<long?>.Principal(entity) = value);
+                CompiledModelTestBase.DependentBase<long?> (CompiledModelTestBase.DependentBase<long?> instance, CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<long?>> value) =>
+                {
+                    DependentBaseUnsafeAccessors<long?>.Principal(instance) = value;
+                    return instance;
+                });
             principal.SetAccessors(
                 CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<long?>> (IInternalEntry entry) => DependentBaseUnsafeAccessors<long?>.Principal(((CompiledModelTestBase.DependentBase<long?>)(entry.Entity))),
                 CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<long?>> (IInternalEntry entry) => DependentBaseUnsafeAccessors<long?>.Principal(((CompiledModelTestBase.DependentBase<long?>)(entry.Entity))),
@@ -163,9 +179,17 @@ namespace TestNamespace
                 CompiledModelTestBase.DependentBase<long?> (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<long?>> instance) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<long?>>.Dependent(instance),
                 bool (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<long?>> instance) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<long?>>.Dependent(instance) == null);
             dependent.SetSetter(
-                (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<long?>> entity, IReadOnlyList<int> indices, CompiledModelTestBase.DependentBase<long?> value) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<long?>>.Dependent(entity) = value);
+                CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<long?>> (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<long?>> instance, CompiledModelTestBase.DependentBase<long?> value) =>
+                {
+                    PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<long?>>.Dependent(instance) = value;
+                    return instance;
+                });
             dependent.SetMaterializationSetter(
-                (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<long?>> entity, IReadOnlyList<int> indices, CompiledModelTestBase.DependentBase<long?> value) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<long?>>.Dependent(entity) = value);
+                CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<long?>> (CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<long?>> instance, CompiledModelTestBase.DependentBase<long?> value) =>
+                {
+                    PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<long?>>.Dependent(instance) = value;
+                    return instance;
+                });
             dependent.SetAccessors(
                 CompiledModelTestBase.DependentBase<long?> (IInternalEntry entry) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<long?>>.Dependent(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<long?>>)(entry.Entity))),
                 CompiledModelTestBase.DependentBase<long?> (IInternalEntry entry) => PrincipalDerivedUnsafeAccessors<CompiledModelTestBase.DependentBase<long?>>.Dependent(((CompiledModelTestBase.PrincipalDerived<CompiledModelTestBase.DependentBase<long?>>)(entry.Entity))),

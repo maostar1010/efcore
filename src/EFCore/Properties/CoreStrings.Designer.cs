@@ -2638,6 +2638,14 @@ namespace Microsoft.EntityFrameworkCore.Diagnostics
                 property, entityType, keyProperties);
 
         /// <summary>
+        ///     The property '{propertyName}' on entity type '{entityType}' is not a collection property and cannot be used with indexed collection accessors.
+        /// </summary>
+        public static string PropertyIsNotACollection(object? propertyName, object? entityType)
+            => string.Format(
+                GetString("PropertyIsNotACollection", nameof(propertyName), nameof(entityType)),
+                propertyName, entityType);
+
+        /// <summary>
         ///     The EF.Property&lt;T&gt; method may only be used within Entity Framework LINQ queries.
         /// </summary>
         public static string PropertyMethodInvoked

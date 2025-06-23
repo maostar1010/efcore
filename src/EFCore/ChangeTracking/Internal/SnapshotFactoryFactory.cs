@@ -2,8 +2,6 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 
 using System.Collections;
-using Microsoft.EntityFrameworkCore.Internal;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
@@ -198,20 +196,21 @@ public abstract class SnapshotFactoryFactory
         {
             if (propertyBase.IsCollection)
             {
-                if (expression.Type != typeof(IEnumerable))
-                {
-                    expression = Expression.Convert(expression, typeof(IEnumerable));
-                }
-
                 expression = propertyBase is IComplexProperty complexProperty
                     ? Expression.Call(
                         null,
                         SnapshotComplexCollectionMethod,
-                        expression)
+
+                        expression.Type.IsAssignableTo(typeof(IList))
+                            ? expression
+                            : Expression.Convert(expression, typeof(IList)),
+                        Expression.Constant(complexProperty))
                     : Expression.Call(
                         null,
                         SnapshotCollectionMethod,
-                        expression);
+                        expression.Type.IsAssignableTo(typeof(IEnumerable))
+                            ? expression
+                            : Expression.Convert(expression, typeof(IEnumerable)));
             }
             return expression;
         }
@@ -353,18 +352,77 @@ public abstract class SnapshotFactoryFactory
     ///     any release. You should only use it directly in your code with extreme caution and knowing that
     ///     doing so can result in application failures when updating to a new Entity Framework Core release.
     /// </summary>
-    public static List<object>? SnapshotComplexCollection(IEnumerable? collection)
+    public static IList? SnapshotComplexCollection(IList? list, IRuntimeComplexProperty complexProperty)
     {
-        if (collection == null)
+        if (list == null)
         {
             return null;
         }
 
-        var snapshot = new List<object>();
-        foreach (var item in collection)
+        var snapshot = (IList)complexProperty.GetIndexedCollectionAccessor().Create(list.Count);
+        foreach (var item in list)
         {
-            snapshot.Add(item);
+            if (item == null)
+            {
+                snapshot.Add(null);
+            }
+            else
+            {
+                snapshot.Add(DeepClone(item, complexProperty.ComplexType));
+            }
         }
         return snapshot;
+    }
+
+    private static object? DeepClone(object? item, IComplexType complexType)
+    {
+        if (item == null)
+        {
+            return null;
+        }
+
+        var copy = Activator.CreateInstance(complexType.ClrType);
+        if (copy == null)
+        {
+            return null;
+        }
+
+        foreach (var property in complexType.GetProperties())
+        {
+            if (!property.IsShadowProperty())
+            {
+                var value = property.GetGetter().GetClrValue(item);
+                var snapshotValue = property.GetValueComparer().Snapshot(value);
+                if (property.PropertyInfo?.CanWrite == true)
+                {
+                    property.PropertyInfo.SetValue(copy, snapshotValue);
+                }
+            }
+        }
+
+        foreach (var complexProperty in complexType.GetComplexProperties())
+        {
+            if (!complexProperty.IsShadowProperty())
+            {
+                var value = complexProperty.GetGetter().GetClrValue(item);
+                object? copiedValue = null;
+
+                if (complexProperty.IsCollection && value is IList childList)
+                {
+                    copiedValue = SnapshotComplexCollection(childList, (IRuntimeComplexProperty)complexProperty);
+                }
+                else if (!complexProperty.IsCollection && value != null)
+                {
+                    copiedValue = DeepClone(value, complexProperty.ComplexType);
+                }
+
+                if (complexProperty.PropertyInfo?.CanWrite == true)
+                {
+                    complexProperty.PropertyInfo.SetValue(copy, copiedValue);
+                }
+            }
+        }
+
+        return copy;
     }
 }

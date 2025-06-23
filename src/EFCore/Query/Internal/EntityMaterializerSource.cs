@@ -157,10 +157,12 @@ public class EntityMaterializerSource : IEntityMaterializerSource
                     => serviceProperty.ParameterBinding.BindToParameter(bindingInfo),
 
                 IComplexProperty complexProperty
-                    => CreateMaterializeExpression(
-                        new EntityMaterializerSourceParameters(
-                            complexProperty.ComplexType, "complexType", QueryTrackingBehavior: null),
-                        bindingInfo.MaterializationContextExpression),
+                    => complexProperty.IsCollection 
+                        ? Expression.Default(complexProperty.ClrType) // Initialize collections to null, they'll be populated separately
+                        : CreateMaterializeExpression(
+                            new EntityMaterializerSourceParameters(
+                                complexProperty.ComplexType, "complexType", QueryTrackingBehavior: null),
+                            bindingInfo.MaterializationContextExpression),
 
                 _ => throw new UnreachableException()
             };

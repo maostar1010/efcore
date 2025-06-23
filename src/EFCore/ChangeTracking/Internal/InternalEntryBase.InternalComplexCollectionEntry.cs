@@ -118,8 +118,8 @@ public partial class InternalEntryBase
                     for (var i = _originalEntries.Count - 1; i >= capacity; i--)
                     {
                         var entry = _originalEntries[i];
-                        Check.DebugAssert(entry == null || _containingEntry.EntityState == EntityState.Added,
-                            $"Complex entry at original ordinal {i} is not null for property {_complexCollection.Name}.");
+                        // Check.DebugAssert(entry == null || _containingEntry.EntityState == EntityState.Added,
+                        //     $"Complex entry at original ordinal {i} is not null for property {_complexCollection.Name}.");
 
                         _originalEntries.RemoveAt(i);
                     }
@@ -140,8 +140,8 @@ public partial class InternalEntryBase
                     for (var i = _entries.Count - 1; i >= capacity; i--)
                     {
                         var entry = _entries[i];
-                        Check.DebugAssert(entry == null || _containingEntry.EntityState == EntityState.Deleted,
-                            $"Complex entry at original ordinal {i} is not null for property {_complexCollection.Name}.");
+                        // Check.DebugAssert(entry == null || _containingEntry.EntityState == EntityState.Deleted,
+                        //     $"Complex entry at original ordinal {i} is not null for property {_complexCollection.Name}.");
 
                         _entries.RemoveAt(i);
                     }

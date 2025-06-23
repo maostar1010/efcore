@@ -1524,9 +1524,7 @@ public class CSharpRuntimeModelCodeGenerator : ICompiledModelCodeGenerator
                             hasSentinelValueUsingContainingEntityExpression, parameters.Namespaces, unsafeAccessors,
                             (IReadOnlyDictionary<object, string>)parameters.ScopeVariables, memberAccessReplacements), skipFinalNewline: true)
                     .AppendLine(",");
-            }
-
-            // For properties declared on entity types, use only two parameters
+            }            
             mainBuilder
                 .AppendLines(
                     _code.Expression(
@@ -1540,11 +1538,21 @@ public class CSharpRuntimeModelCodeGenerator : ICompiledModelCodeGenerator
                 .AppendLine(");")
                 .DecrementIndent();
 
-            ClrPropertySetterFactory.Instance.Create(property, out var setterExpression);
+            ClrPropertySetterFactory.Instance.Create(property, out var setterUsingContainingEntityExpression, out var setterExpression);
 
             mainBuilder
                 .Append(variableName).AppendLine(".SetSetter(")
-                .IncrementIndent()
+                .IncrementIndent();
+            if (property.DeclaringType is not IEntityType)
+            {
+                mainBuilder
+                    .AppendLines(
+                        _code.Expression(
+                            setterUsingContainingEntityExpression, parameters.Namespaces, unsafeAccessors,
+                            (IReadOnlyDictionary<object, string>)parameters.ScopeVariables, memberAccessReplacements), skipFinalNewline: true)
+                    .AppendLine(",");
+            }
+            mainBuilder
                 .AppendLines(
                     _code.Expression(
                         setterExpression, parameters.Namespaces, unsafeAccessors,
@@ -1552,11 +1560,21 @@ public class CSharpRuntimeModelCodeGenerator : ICompiledModelCodeGenerator
                 .AppendLine(");")
                 .DecrementIndent();
 
-            ClrPropertyMaterializationSetterFactory.Instance.Create(property, out var materializationSetterExpression);
+            ClrPropertyMaterializationSetterFactory.Instance.Create(property, out var materializationSetterUsingContainingEntityExpression, out var materializationSetterExpression);
 
             mainBuilder
                 .Append(variableName).AppendLine(".SetMaterializationSetter(")
-                .IncrementIndent()
+                .IncrementIndent();
+            if (property.DeclaringType is not IEntityType)
+            {
+                mainBuilder
+                    .AppendLines(
+                        _code.Expression(
+                            materializationSetterUsingContainingEntityExpression, parameters.Namespaces, unsafeAccessors,
+                            (IReadOnlyDictionary<object, string>)parameters.ScopeVariables, memberAccessReplacements), skipFinalNewline: true)
+                    .AppendLine(",");
+            }
+            mainBuilder
                 .AppendLines(
                     _code.Expression(
                         materializationSetterExpression, parameters.Namespaces, unsafeAccessors,
@@ -1570,7 +1588,7 @@ public class CSharpRuntimeModelCodeGenerator : ICompiledModelCodeGenerator
                 ClrIndexedCollectionAccessorFactory.Instance.Create(
                     property,
                     out _, out _, out _,
-                    out var get, out var set, out var setForMaterialization);
+                    out var get, out var set, out var setForMaterialization, out var createCollection);
 
                 mainBuilder
                     .Append(variableName).AppendLine(".SetIndexedCollectionAccessor(")
@@ -1588,6 +1606,11 @@ public class CSharpRuntimeModelCodeGenerator : ICompiledModelCodeGenerator
                     .AppendLines(
                         _code.Expression(
                             setForMaterialization!, parameters.Namespaces, unsafeAccessors,
+                            (IReadOnlyDictionary<object, string>)parameters.ScopeVariables, memberAccessReplacements), skipFinalNewline: true)
+                    .AppendLine(",")
+                    .AppendLines(
+                        _code.Expression(
+                            createCollection!, parameters.Namespaces, unsafeAccessors,
                             (IReadOnlyDictionary<object, string>)parameters.ScopeVariables, memberAccessReplacements), skipFinalNewline: true)
                     .AppendLine(");")
                     .DecrementIndent();
